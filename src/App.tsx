@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { Suspense, useEffect } from 'react';
 import routes from './routes';
+import { initWebSocket } from "./websocket/manager";
 
 function AppRoutes() {
   const element = useRoutes(routes);
@@ -17,6 +18,10 @@ function App() {
         document.documentElement.classList.add(theme);
       }
     },[]);
+
+    useEffect(() => {
+      initWebSocket();
+    }, []);
 
   return (
     <>

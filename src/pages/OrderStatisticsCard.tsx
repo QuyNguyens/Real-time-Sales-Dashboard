@@ -32,6 +32,7 @@ const statusOrder: (keyof OrderStatus)[] = [
 ];
 
 export default function OrderStatisticsCard({orderStatus, setOrderStatus}: OrderStatisticsCardProps) {
+
   const data: StatusData[] = useMemo(() => {
     return statusOrder.map((key) => ({
       name: key.charAt(0).toUpperCase() + key.slice(1),

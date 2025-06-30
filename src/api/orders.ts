@@ -10,6 +10,12 @@ const orderApi = {
         return res.data;
     },
 
+    deleteOrder: async (orderId: string) => {
+        await axiosClient.delete('/api/order-delete',{
+            params: {orderId}
+        });
+    },
+    
     getOrdersByUser: async (userId: string, page: number = 1, limit: number = 10) :Promise<PaginatedResponse<Order>> => {
         const res = await axiosClient.get('/api/orders-user', {
         params: { userId, page, limit },

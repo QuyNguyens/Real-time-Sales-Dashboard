@@ -27,6 +27,7 @@ const BORDER_GROWTH_COLORS = [
 
 
 const TopSellingCategories = ({ data, setProductStatus }: Props) => {
+    
   const entries = useMemo(() => Object.entries(data), [data]);
 
   const totalSales = useMemo(() => {

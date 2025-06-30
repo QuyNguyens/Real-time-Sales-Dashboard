@@ -1,3 +1,5 @@
+import type { User } from "./user";
+
 export interface OrderItem {
   _id: string;
   orderId: string;
@@ -27,6 +29,7 @@ export interface Order {
   timestamp: string;
   createdAt: string;
   updatedAt: string;
+  user: User;
 }
 
 export interface OrderStatus{

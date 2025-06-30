@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { connectWebSocket, disconnectWebSocket } from "../websocket/websocket";
 import type {OrderStatus, SaleOverView } from "../types/order";
 import SalesOverviewChart from "./SalesOverviewChart";
 import OrderStatisticsCard from "./OrderStatisticsCard";
@@ -15,9 +14,10 @@ import TopSellingCategories from "./TopSellingCategories";
 import type { ProductTypeStats } from "../types/product";
 import productApi from "../api/product";
 import Banner from '../assets/banner.png';
-import { setTotal } from "../features/users/usersSlice";
-import { setTotal as setProductTotal } from "../features/products/productsSlice";
-import { incrementOneTotal } from "../features/orders/ordersSlice";
+import { incrementTotal as setUserTotal } from "../features/users/usersSlice";
+import { incrementTotal as setProductTotal } from "../features/products/productsSlice";
+import { decrementTotal, deleteItemFromPage, incrementOneTotal } from "../features/orders/ordersSlice";
+import { useBroadcastChannel } from "../hook/useBroadcastChannel";
 
 const Dashboard = () => {
     const [salesOverview, setSalesOverview] = useState<SaleOverView[]>([]);
@@ -81,45 +81,10 @@ const Dashboard = () => {
     };
 
     function handleRealtimeUpdate(data: any) {
+
       switch (data.type) {
-        case "new_user":
-          dispatch(setTotal(usersCounts + 1));
-          break;
-        case "new_order":
-        case "order_status_update":
-          fetchOrderStatus();
-          fetchProductStatus();
-          break;
-        case "new_product":
-          dispatch(setProductTotal(productsCounts + data?.products.length));
-          break;
-        default:
-          console.warn("⚠️ Unknown message type:", data);
-      }
-    }
-
-    useEffect(() => {
-      
-      fetchSalesOverview();
-      fetchOrderStatus();
-      fetchProductStatus();
-
-      dispatch(fetchProductsPage(1,10));
-      dispatch(fetchOrdersPage(1,10));
-      dispatch(fetchUsersPage(1,10));
-
-      const bc = new BroadcastChannel('realtime_channel');
-
-      connectWebSocket((data) => {
-        // TODO: handle data (e.g. show toast, update UI)
-        
-        bc.postMessage(data);
-
-        handleRealtimeUpdate(data);
-  
-        switch (data.type) {
           case "new_user":
-            dispatch(setTotal(usersCounts+1));
+            dispatch(setUserTotal(1));
             break;
           case "new_order":
           case "order_status_update":
@@ -133,22 +98,41 @@ const Dashboard = () => {
             fetchOrderStatus();
             fetchProductStatus();
             break;
+          case "delete_order":
+            dispatch(deleteItemFromPage(data.orderId));
+            dispatch(decrementTotal());
+            break;
           case "new_product":
-            dispatch(setProductTotal(productsCounts + data?.products.length));
+            dispatch(setProductTotal(data?.products.length));
             break;
           default:
             console.warn("⚠️ Unknown message type:", data);
         }
-      });
+    }
 
-      bc.onmessage = (event) => {
-        handleRealtimeUpdate(event.data);
-      };
+    useBroadcastChannel("realtime_channel", handleRealtimeUpdate);
 
-      return () => {
-        disconnectWebSocket();
-      };
+    useEffect(() => {
+      
+      fetchSalesOverview();
+      fetchOrderStatus();
+      fetchProductStatus();
+
+      dispatch(fetchProductsPage(1,10));
+      dispatch(fetchOrdersPage(1,10));
+      dispatch(fetchUsersPage(1,10));
+
     }, []);
+
+    useEffect(() => {
+      sessionStorage.removeItem('salesOverview');
+      sessionStorage.removeItem('orderStatus');
+      sessionStorage.removeItem('productStatus');
+      fetchSalesOverview();
+      fetchOrderStatus();
+      fetchProductStatus();
+    },[ordersCounts])
+    
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-semibold">Sales Dashboard</h1>

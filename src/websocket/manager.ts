@@ -1,12 +1,15 @@
+// src/websocket/manager.ts
 let socket: WebSocket | null = null;
 
-type MessageHandler = (data: any) => void;
+export function initWebSocket() {
+  if (socket) return;
 
-export function connectWebSocket(onMessage: MessageHandler) {
   const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+  const url = `${protocol}:${import.meta.env.VITE_API_HOST}`;
 
-  const url = `${protocol}://localhost:3001`;
   socket = new WebSocket(url);
+
+  const bc = new BroadcastChannel("realtime_channel");
 
   socket.onopen = () => {
     console.log("✅ WebSocket connected");
@@ -15,24 +18,18 @@ export function connectWebSocket(onMessage: MessageHandler) {
   socket.onmessage = (event: MessageEvent) => {
     try {
       const data = JSON.parse(event.data);
-      onMessage(data);
+      bc.postMessage(data); // gửi cho tất cả tab/component
     } catch (err) {
-      console.error("❌ Error parsing WebSocket message:", err);
+      console.error("❌ Failed to parse WS message", err);
     }
   };
 
   socket.onclose = () => {
     console.warn("⚠️ WebSocket disconnected");
+    socket = null;
   };
 
   socket.onerror = (err) => {
     console.error("❌ WebSocket error:", err);
   };
-}
-
-export function disconnectWebSocket() {
-  if (socket) {
-    socket.close();
-    socket = null;
-  }
 }

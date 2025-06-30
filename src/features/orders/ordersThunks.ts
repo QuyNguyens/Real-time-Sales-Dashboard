@@ -5,6 +5,8 @@ import {
   setTotal,
   setPageItems,
   setCurrentPage,
+  deleteItemFromPage,
+  decrementTotal,
 } from "./ordersSlice"; // slice bạn đã tạo
 
 export const fetchOrdersPage =
@@ -17,6 +19,25 @@ export const fetchOrdersPage =
       dispatch(setCurrentPage(page));
     } catch (err) {
       console.error("❌ Failed to fetch orders:", err);
+    }
+  };
+
+export const deleteOrder =
+  (orderId: string) =>
+  async (dispatch: AppDispatch, getState: () => any) => {
+    try {
+
+      await orderApi.deleteOrder(orderId);
+
+      const state = getState();
+      const currentPage = state.orders.currentPage;
+      const currentItems = state.orders.pages[currentPage] || [];
+
+      if (currentItems.length <= 1 && currentPage > 1) {
+        dispatch(fetchOrdersPage(currentPage - 1, state.orders.itemsPerPage));
+      }
+    } catch (err) {
+      console.error("❌ Failed to delete order:", err);
     }
   };
 

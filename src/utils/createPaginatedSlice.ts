@@ -1,16 +1,24 @@
 import { createSlice, type PayloadAction, type Draft } from "@reduxjs/toolkit";
 
+interface HasId {
+  _id: string;
+  orderId: string;
+}
+
+
 export interface PaginatedState<T> {
   total: number;
   pages: Record<number, T[]>;
   currentPage: number;
+  itemsPerPage: number;
 }
 
-export function createPaginatedSlice<T>(name: string) {
+export function createPaginatedSlice<T extends HasId>(name: string) {
   const getInitialState = (): PaginatedState<T> => ({
     total: 0,
     pages: {},
     currentPage: 1,
+    itemsPerPage: 5
   });
 
   return createSlice({
@@ -42,6 +50,21 @@ export function createPaginatedSlice<T>(name: string) {
       },
       invalidatePage(state, action: PayloadAction<number>) {
         delete state.pages[action.payload];
+      },
+      setItemsPerPage(state, action: PayloadAction<number>) {
+        state.itemsPerPage = action.payload;
+      },
+     deleteItemFromPage(state, action: PayloadAction<string>) {
+      const page = state.currentPage;
+      if (state.pages[page]) {
+        const idToDelete = action.payload;
+        state.pages[page] = state.pages[page].filter((item: any) => {
+          return item.orderId !== idToDelete && item._id !== idToDelete;
+        });
+      }
+    },
+      decrementTotal(state) {
+        state.total = state.total - 1;
       },
     },
   });
