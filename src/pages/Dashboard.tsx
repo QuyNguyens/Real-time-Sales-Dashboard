@@ -14,7 +14,7 @@ import TopSellingCategories from "./TopSellingCategories";
 import type { ProductTypeStats } from "../types/product";
 import productApi from "../api/product";
 import Banner from '../assets/banner.png';
-import { incrementTotal as setUserTotal } from "../features/users/usersSlice";
+import { decrementTotal as decrementUserTotal, deleteItemFromPage as deleteUserFromPage, incrementTotal as setUserTotal } from "../features/users/usersSlice";
 import { decrementTotal as decrementProductTotal, deleteItemFromPage as deleteProductFromPage, incrementTotal as setProductTotal } from "../features/products/productsSlice";
 import { decrementTotal as decrementOrderTotal, deleteItemFromPage as deleteOrderFromPage, incrementOneTotal } from "../features/orders/ordersSlice";
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
@@ -105,6 +105,10 @@ const Dashboard = () => {
           case "delete_product":
             dispatch(deleteProductFromPage(data.productId));
             dispatch(decrementProductTotal());
+            break;
+          case "delete_user":
+            dispatch(deleteUserFromPage(data.userId));
+            dispatch(decrementUserTotal());
             break;
           case "new_product":
             dispatch(setProductTotal(data?.products.length));

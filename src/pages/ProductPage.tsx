@@ -16,7 +16,6 @@ const ProductPage = () => {
   const total = useSelector((state: RootState) => state.products.total);
   const pages = useSelector((state: RootState) => state.products.pages);
   const products = useSelector(selectCurrentProducts);
-    console.log('total: ', total);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {

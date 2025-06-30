@@ -54,15 +54,15 @@ export function createPaginatedSlice<T extends HasId>(name: string) {
       setItemsPerPage(state, action: PayloadAction<number>) {
         state.itemsPerPage = action.payload;
       },
-     deleteItemFromPage(state, action: PayloadAction<string>) {
-      const page = state.currentPage;
-      if (state.pages[page]) {
-        const idToDelete = action.payload;
-        state.pages[page] = state.pages[page].filter((item: any) => {
-          return item.orderId !== idToDelete && item._id !== idToDelete;
-        });
-      }
-    },
+      deleteItemFromPage(state, action: PayloadAction<string>) {
+        const page = state.currentPage;
+        if (state.pages[page]) {
+          const idToDelete = action.payload;
+          state.pages[page] = state.pages[page].filter((item: any) => {
+            return item.orderId !== idToDelete && item._id !== idToDelete;
+          });
+        }
+      },
       decrementTotal(state) {
         state.total = state.total - 1;
       },

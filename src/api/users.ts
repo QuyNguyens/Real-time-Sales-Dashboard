@@ -12,7 +12,13 @@ const userApi = {
     create: async () =>{
         const res = await axiosClient.post('/mock/new-user');
         return res.data;
-    }
+    },
+
+    deleteUser: async (userId: string) => {
+        await axiosClient.delete('/api/user-delete',{
+            params: {userId}
+        });
+    },
 }
 
 export default userApi;
