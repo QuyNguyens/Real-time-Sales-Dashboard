@@ -3,7 +3,7 @@ import type { PaginatedResponse } from "../types/user";
 import axiosClient from "./axiosClient";
 
 const orderApi = {
-    getOrders: async (page: number = 1, limit: number = 10) :Promise<PaginatedResponse<Order>> => {
+    getOrders: async (page: number = 1, limit: number = 5) :Promise<PaginatedResponse<Order>> => {
         const res = await axiosClient.get('/api/orders', {
       params: { page, limit },
     });

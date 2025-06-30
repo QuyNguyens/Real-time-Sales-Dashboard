@@ -2,7 +2,8 @@ import {
   HomeIcon,
   ClipboardDocumentListIcon,
   UserGroupIcon,
-  CloudArrowDownIcon,
+  CreditCardIcon,
+  CloudArrowDownIcon
 } from '@heroicons/react/24/outline';
 
 export interface SidebarItem {
@@ -21,6 +22,11 @@ const sidebarItems: SidebarItem[] = [
     label: 'Orders',
     path: '/orders',
     icon: ClipboardDocumentListIcon,
+  },
+  {
+    label: 'Products',
+    path: '/products',
+    icon: CreditCardIcon,
   },
   {
     label: 'Users',

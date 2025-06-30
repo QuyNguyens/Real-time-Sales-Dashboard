@@ -15,8 +15,8 @@ import type { ProductTypeStats } from "../types/product";
 import productApi from "../api/product";
 import Banner from '../assets/banner.png';
 import { incrementTotal as setUserTotal } from "../features/users/usersSlice";
-import { incrementTotal as setProductTotal } from "../features/products/productsSlice";
-import { decrementTotal, deleteItemFromPage, incrementOneTotal } from "../features/orders/ordersSlice";
+import { decrementTotal as decrementProductTotal, deleteItemFromPage as deleteProductFromPage, incrementTotal as setProductTotal } from "../features/products/productsSlice";
+import { decrementTotal as decrementOrderTotal, deleteItemFromPage as deleteOrderFromPage, incrementOneTotal } from "../features/orders/ordersSlice";
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
 
 const Dashboard = () => {
@@ -99,8 +99,12 @@ const Dashboard = () => {
             fetchProductStatus();
             break;
           case "delete_order":
-            dispatch(deleteItemFromPage(data.orderId));
-            dispatch(decrementTotal());
+            dispatch(deleteOrderFromPage(data.orderId));
+            dispatch(decrementOrderTotal());
+            break;
+          case "delete_product":
+            dispatch(deleteProductFromPage(data.productId));
+            dispatch(decrementProductTotal());
             break;
           case "new_product":
             dispatch(setProductTotal(data?.products.length));
@@ -118,9 +122,9 @@ const Dashboard = () => {
       fetchOrderStatus();
       fetchProductStatus();
 
-      dispatch(fetchProductsPage(1,10));
-      dispatch(fetchOrdersPage(1,10));
-      dispatch(fetchUsersPage(1,10));
+      dispatch(fetchProductsPage(1,5));
+      dispatch(fetchOrdersPage(1,5));
+      dispatch(fetchUsersPage(1,5));
 
     }, []);
 

@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction, type Draft } from "@reduxjs/toolkit";
 
 interface HasId {
   _id: string;
-  orderId: string;
+  orderId?: string;
 }
 
 

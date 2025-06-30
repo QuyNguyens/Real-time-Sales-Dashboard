@@ -1,54 +1,54 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import OrdersTable from "../components/OrdersTable";
 import Pagination from "../components/Pagination";
 import ItemsPerPage from "../components/ItemsPerPage";
-import { decrementTotal, deleteItemFromPage, selectCurrentOrders, setItemsPerPage } from "../features/orders/ordersSlice";
-import { fetchOrdersPage } from "../features/orders/ordersThunks";
+import { decrementTotal, deleteItemFromPage, setItemsPerPage } from "../features/products/productsSlice";
+import { fetchProductsPage } from "../features/products/productsThunks";
 import type { RootState } from "../app/store";
 import type { AppDispatch } from "../app/store"; 
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
+import { selectCurrentProducts } from "../features/products/productsSlice";
+import ProductTable from "../components/ProductTable";
 
-const Orders = () => {
-  const currentPage = useSelector((state: RootState) => state.orders.currentPage);
-  const itemsPerPage = useSelector((state: RootState) => state.orders.itemsPerPage);
-  const total = useSelector((state: RootState) => state.orders.total);
-  const pages = useSelector((state: RootState) => state.orders.pages);
-  const orders = useSelector(selectCurrentOrders);
-
+const ProductPage = () => {
+  const currentPage = useSelector((state: RootState) => state.products.currentPage);
+  const itemsPerPage = useSelector((state: RootState) => state.products.itemsPerPage);
+  const total = useSelector((state: RootState) => state.products.total);
+  const pages = useSelector((state: RootState) => state.products.pages);
+  const products = useSelector(selectCurrentProducts);
+    console.log('total: ', total);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchOrdersPage(1, itemsPerPage));
+    dispatch(fetchProductsPage(1, itemsPerPage));
   }, [itemsPerPage]);
 
   useEffect(() => {
     if (!pages[currentPage]) {
-      dispatch(fetchOrdersPage(currentPage, itemsPerPage));
+      dispatch(fetchProductsPage(currentPage, itemsPerPage));
     }
   }, [currentPage]);
 
   const handlePageChange = (page: number) => {
-    dispatch(fetchOrdersPage(page, itemsPerPage));
+    dispatch(fetchProductsPage(page, itemsPerPage));
   };
 
   useBroadcastChannel("realtime_channel", (data) => {
-    if (data.type === "delete_order") {
-      dispatch(deleteItemFromPage(data.orderId));
+    if (data.type === "delete_product") {
+      dispatch(deleteItemFromPage(data.productId));
       dispatch(decrementTotal());
     }
   });
 
   const handleSetItemsPerPage = (value: number) => {
     dispatch(setItemsPerPage(value));
-  };
-
+    };
   return (
     <div className="flex h-full">
       <div className="flex-1 flex flex-col justify-between bg-white">
         <div>
-          <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent Orders</h2>
-          <OrdersTable data={orders} />
+          <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent Products</h2>
+          <ProductTable data={products} />
         </div>
         <div className="flex justify-between p-4">
           <Pagination
@@ -64,4 +64,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default ProductPage;

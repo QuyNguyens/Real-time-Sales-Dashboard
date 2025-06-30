@@ -5,16 +5,16 @@ import {
   setTotal,
   setPageItems,
   setCurrentPage,
-  deleteItemFromPage,
-  decrementTotal,
+  setItemsPerPage,
 } from "./ordersSlice"; // slice bạn đã tạo
 
 export const fetchOrdersPage =
-  (page: number = 1, limit: number = 10) =>
+  (page: number = 1, limit: number = 5) =>
   async (dispatch: AppDispatch) => {
     try {
       const res = await orderApi.getOrders(page, limit);
       dispatch(setTotal(res.total));
+      dispatch(setItemsPerPage(limit));
       dispatch(setPageItems({ page, items: res.data }));
       dispatch(setCurrentPage(page));
     } catch (err) {

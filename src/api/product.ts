@@ -3,7 +3,7 @@ import type { PaginatedResponse } from "../types/user";
 import axiosClient from "./axiosClient";
 
 const productApi = {
-    getProducts: async (page: number = 1, limit: number = 10) :Promise<PaginatedResponse<Product>> => {
+    getProducts: async (page: number = 1, limit: number = 5) :Promise<PaginatedResponse<Product>> => {
         const res = await axiosClient.get('/api/products', {
       params: { page, limit },
     });
@@ -20,7 +20,13 @@ const productApi = {
     create: async (count: number) =>{
         const res = await axiosClient.post(`/mock/new-product?count=${count}`);
         return res.data;
-    }
+    },
+
+    deleteProduct: async (productId: string) => {
+        await axiosClient.delete('/api/product-delete',{
+            params: {productId}
+        });
+    },
 }
 
 export default productApi;

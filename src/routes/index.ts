@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 
 const DashboardPage = lazy(() => import('../pages/Dashboard'));
 const OrdersPage = lazy(() => import('../pages/Orders'));
+const ProductPage = lazy(() => import('../pages/ProductPage'));
 const UsersPage = lazy(() => import('../pages/Users'));
 const FetchDataPage = lazy(() => import('../pages/FetchData'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
@@ -21,6 +22,10 @@ const routes: RouteObject[] = [
         {
             path: '/orders',
             element: React.createElement(OrdersPage),
+        },
+         {
+            path: '/products',
+            element: React.createElement(ProductPage),
         },
         {
             path: '/users',
