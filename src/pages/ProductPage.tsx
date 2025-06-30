@@ -9,6 +9,8 @@ import type { AppDispatch } from "../app/store";
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
 import { selectCurrentProducts } from "../features/products/productsSlice";
 import ProductTable from "../components/ProductTable";
+import TopSellingCategories from "./TopSellingCategories";
+import Banner from '../assets/banner.png';
 
 const ProductPage = () => {
   const currentPage = useSelector((state: RootState) => state.products.currentPage);
@@ -17,6 +19,8 @@ const ProductPage = () => {
   const pages = useSelector((state: RootState) => state.products.pages);
   const products = useSelector(selectCurrentProducts);
   const dispatch = useDispatch<AppDispatch>();
+
+  const productStatus = useSelector((state: RootState) => state.productStatus.data);
 
   useEffect(() => {
     dispatch(fetchProductsPage(1, itemsPerPage));
@@ -43,8 +47,8 @@ const ProductPage = () => {
     dispatch(setItemsPerPage(value));
     };
   return (
-    <div className="flex h-full">
-      <div className="flex-1 flex flex-col justify-between bg-white">
+    <div className="flex gap-5 h-full items-center">
+      <div className="flex-1 flex flex-col h-full justify-between bg-white">
         <div>
           <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent Products</h2>
           <ProductTable data={products} />
@@ -58,7 +62,10 @@ const ProductPage = () => {
           <ItemsPerPage itemsPerPage={itemsPerPage} setItemsPerPage={handleSetItemsPerPage} />
         </div>
       </div>
-      <div className="w-80"></div>
+      <div className="flex flex-col gap-5 w-96">
+          <img src={Banner} alt="" />
+          {productStatus && <TopSellingCategories data={productStatus}/>}
+        </div>
     </div>
   );
 };

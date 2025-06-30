@@ -31,6 +31,8 @@ const statusOrder: (keyof OrderStatus)[] = [
   "new",
 ];
 
+const options = ["Today", "Last day", "This week", "Last week", "This month", "Last month", "All"];
+
 export default function OrderStatisticsCard({orderStatus, setOrderStatus}: OrderStatisticsCardProps) {
 
   const data: StatusData[] = useMemo(() => {
@@ -99,11 +101,12 @@ export default function OrderStatisticsCard({orderStatus, setOrderStatus}: Order
       console.error("❌ Failed to fetch filtered status:", err);
     }
   };
+
   return (
-    <div className="relative w-[260px] bg-white p-4 rounded-xl shadow-md">
+    <div className="relative w-full bg-white p-4 rounded-xl shadow-md">
       <div className="flex items-center justify-between">
         <h2 className="text-[16px] font-medium mb-2">Order Statistics</h2>
-        <OrderDaySelector iconOnly={true} onSelect={handleFilterChange} />
+        <OrderDaySelector options={options} iconOnly={true} onSelect={handleFilterChange} />
       </div>
 
       <div className="mt-4 p-3 bg-blue-50 inline-flex rounded-sm">

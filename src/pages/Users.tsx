@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../components/Pagination";
 import ItemsPerPage from "../components/ItemsPerPage";
@@ -9,13 +9,21 @@ import type { AppDispatch } from "../app/store";
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
 import { selectCurrentUsers } from "../features/users/usersSlice";
 import UserTable from "../components/UserTable";
+import type { TopUser as TopUserType } from "../types/user";
+import userApi from "../api/users";
+import TopUsersTable from "../components/TopUsersTable";
+import OrderDaySelector from "../components/OrderDaySelector";
+
+const options = ["Day", "Week", "Month", "Year"];
 
 const Users = () => {
+  const [topUsers, setTopUsers] = useState<TopUserType[]>([]);
   const currentPage = useSelector((state: RootState) => state.users.currentPage);
   const itemsPerPage = useSelector((state: RootState) => state.users.itemsPerPage);
   const total = useSelector((state: RootState) => state.users.total);
   const pages = useSelector((state: RootState) => state.users.pages);
   const users = useSelector(selectCurrentUsers);
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -27,6 +35,18 @@ const Users = () => {
       dispatch(fetchUsersPage(currentPage, itemsPerPage));
     }
   }, [currentPage]);
+
+  useEffect(() =>{
+    const fetchUsersTop = async () =>{
+      try {
+        const users = await userApi.getTopUser("year");
+        setTopUsers(users);
+      } catch (error) {
+        console.error("get users top failed!!!: ", error);
+      }
+    }
+    fetchUsersTop();
+  },[]);
 
   const handlePageChange = (page: number) => {
     dispatch(fetchUsersPage(page, itemsPerPage));
@@ -41,10 +61,20 @@ const Users = () => {
 
   const handleSetItemsPerPage = (value: number) => {
     dispatch(setItemsPerPage(value));
-    };
+  };
+
+    const handleFilterChange = async (filter: string) => {
+    try {
+      const res = await userApi.getTopUser(filter.toLowerCase());
+      setTopUsers(res);
+    } catch (err) {
+      console.error("❌ Failed to fetch filtered top user:", err);
+    }
+  };
+
   return (
-    <div className="flex h-full">
-      <div className="flex-1 flex flex-col justify-between bg-white">
+    <div className="flex h-full gap-5">
+      <div className="flex-1 h-full flex flex-col justify-between bg-white">
         <div>
           <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent users</h2>
           <UserTable data={users} />
@@ -58,7 +88,13 @@ const Users = () => {
           <ItemsPerPage itemsPerPage={itemsPerPage} setItemsPerPage={handleSetItemsPerPage} />
         </div>
       </div>
-      <div className="w-80"></div>
+      <div className="w-96 bg-white rounded-md p-2">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-medium text-gray-700">Top Users</h2>
+          <OrderDaySelector options={options} iconOnly={true} onSelect={handleFilterChange}/>
+        </div>
+        <TopUsersTable data={topUsers}/>
+      </div>
     </div>
   );
 };

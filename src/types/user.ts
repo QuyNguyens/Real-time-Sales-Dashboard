@@ -13,3 +13,14 @@ export interface PaginatedResponse<T> {
   data: T[];
   total: number;
 }
+
+export interface TopUser {
+  _id: string;
+  amount: number;
+  total: number;    
+  user: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
+}

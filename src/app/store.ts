@@ -1,6 +1,7 @@
 // store.ts
 import { configureStore } from '@reduxjs/toolkit';
 import productsSlice from '../features/products/productsSlice';
+import productStatusSlice from '../features/products/productStatusSlice';
 import usersSlice from '../features/users/usersSlice';
 import ordersSlice from '../features/orders/ordersSlice';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -11,13 +12,14 @@ import { combineReducers } from 'redux';
 const rootReducer = combineReducers({
   products: productsSlice,
   orders: ordersSlice,
-  users: usersSlice
+  users: usersSlice,
+  productStatus: productStatusSlice
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['products', 'orders', 'users'],
+  whitelist: ['products', 'orders', 'users', 'productStatus'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

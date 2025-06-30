@@ -24,7 +24,7 @@ function SalesOverviewChart({ salesData }: SalesOverviewChartProps) {
   }));
 
   return (
-    <div className="bg-white w-[600px] p-4 rounded-xl shadow-md">
+    <div className="bg-white w-full p-4 rounded-xl shadow-md">
       <h2 className="text-lg font-semibold mb-5">Sales Overview</h2>
       <ResponsiveContainer width="100%" height={300}>
         <ComposedChart data={data}>

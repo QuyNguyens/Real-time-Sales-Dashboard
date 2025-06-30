@@ -4,10 +4,10 @@ import { ChevronDownIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outli
 interface OrderDaySelectorProps {
   iconOnly?: boolean;
   onSelect: (filter: string) => void;
+  options: string[];
 }
 
-const OrderDaySelector = ({ iconOnly, onSelect }: OrderDaySelectorProps) => {
-  const options = ["Today", "Last day", "This week", "Last week", "This month", "Last month", "All"];
+const OrderDaySelector = ({ iconOnly, options, onSelect }: OrderDaySelectorProps) => {
 
   return (
     <div className="relative inline-block text-left">

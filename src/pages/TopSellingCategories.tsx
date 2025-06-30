@@ -3,10 +3,11 @@ import type { ProductTypeStats } from "../types/product";
 import OrderDaySelector from "../components/OrderDaySelector";
 import productApi from "../api/product";
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
+import { setProductTypeStats } from "../features/products/productStatusSlice";
+import { useDispatch } from "react-redux";
 
 interface Props {
     data: ProductTypeStats;
-    setProductStatus: React.Dispatch<React.SetStateAction<ProductTypeStats | undefined>>;
 }
 
 const GROWTH_COLORS = [
@@ -25,10 +26,12 @@ const BORDER_GROWTH_COLORS = [
   "border-blue-500",
 ];
 
+const options = ["Today", "Last day", "This week", "Last week", "This month", "Last month", "All"];
 
-const TopSellingCategories = ({ data, setProductStatus }: Props) => {
+const TopSellingCategories = ({ data }: Props) => {
     
   const entries = useMemo(() => Object.entries(data), [data]);
+  const dispatch = useDispatch();
 
   const totalSales = useMemo(() => {
     return entries.reduce((sum, [, stat]) => sum + stat.amount, 0);
@@ -37,7 +40,7 @@ const TopSellingCategories = ({ data, setProductStatus }: Props) => {
   const handleFilterChange = async (filter: string) => {
     try {
       const res = await productApi.getProductsTypeCount(filter.toLowerCase());
-      setProductStatus(res);
+      dispatch(setProductTypeStats(res));
     } catch (err) {
       console.error("❌ Failed to fetch filtered status:", err);
     }
@@ -48,7 +51,7 @@ const TopSellingCategories = ({ data, setProductStatus }: Props) => {
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
             <h2 className="font-semibold text-[16px]">Top Selling Categories</h2>
-            <OrderDaySelector iconOnly={false} onSelect={handleFilterChange}/>
+            <OrderDaySelector options={options} iconOnly={false} onSelect={handleFilterChange}/>
         </div>
 
         {/* Progress Bar */}

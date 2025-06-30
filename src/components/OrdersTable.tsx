@@ -80,7 +80,7 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
                     {order.orderId.slice(0, 8)}...
                     </td>
                     <td className="px-4 py-3 font-medium text-gray-700">
-                    {(order.amount / 1_000_000).toFixed(1)} VND
+                        {(order.amount / 1_000_000).toFixed(1)} VND
                     </td>
                     <td className="px-4 py-3">
                     <span

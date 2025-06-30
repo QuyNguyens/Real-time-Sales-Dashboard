@@ -11,18 +11,18 @@ import { fetchOrdersPage } from "../features/orders/ordersThunks";
 import { fetchUsersPage } from "../features/users/usersThunks";
 import orderApi from "../api/orders";
 import TopSellingCategories from "./TopSellingCategories";
-import type { ProductTypeStats } from "../types/product";
 import productApi from "../api/product";
 import Banner from '../assets/banner.png';
 import { decrementTotal as decrementUserTotal, deleteItemFromPage as deleteUserFromPage, incrementTotal as setUserTotal } from "../features/users/usersSlice";
 import { decrementTotal as decrementProductTotal, deleteItemFromPage as deleteProductFromPage, incrementTotal as setProductTotal } from "../features/products/productsSlice";
 import { decrementTotal as decrementOrderTotal, deleteItemFromPage as deleteOrderFromPage, incrementOneTotal } from "../features/orders/ordersSlice";
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
+import { setProductTypeStats } from "../features/products/productStatusSlice";
 
 const Dashboard = () => {
     const [salesOverview, setSalesOverview] = useState<SaleOverView[]>([]);
     const [orderStatus, setOrderStatus] = useState<OrderStatus>();
-    const [productStatus, setProductStatus] = useState<ProductTypeStats>();
+    const productStatus = useSelector((state: RootState) => state.productStatus.data);
 
     const dispatch = useDispatch<AppDispatch>();
     const productsCounts = useSelector((state: RootState) => state.products.total);
@@ -67,14 +67,14 @@ const Dashboard = () => {
       const cached = sessionStorage.getItem("productStatus");
 
       if (cached) {
-        setProductStatus(JSON.parse(cached));
+        dispatch(setProductTypeStats(JSON.parse(cached)));
         return;
       }
 
       try {
         const productStatusData = await productApi.getProductsTypeCount("");
         sessionStorage.setItem("productStatus", JSON.stringify(productStatusData));
-        setProductStatus(productStatusData);
+        dispatch(setProductTypeStats(productStatusData));
       } catch (error) {
         console.error("get sales overview failed!!!: ", error);
       }
@@ -144,21 +144,25 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-xl font-semibold">Sales Dashboard</h1>
-      <div className="flex gap-5">
-        <div className="flex flex-col gap-5">
+      <div className="flex flex-col xl:flex-row gap-5">
+        <div className="flex-1 flex flex-col gap-5">
           <div className="flex gap-5">
             <TotalItem title="Total Products" amount={productsCounts} bgColor="bg-blue-500" icon={ShoppingCartIcon} />
             <TotalItem title="Total Users" amount={usersCounts} bgColor="bg-purple-500" icon={UserCircleIcon} />
             <TotalItem title="Total Orders" amount={ordersCounts} bgColor="bg-orange-500" icon={ChartBarIcon} />
           </div>
-          <div className="flex gap-5">
-            {salesOverview && <SalesOverviewChart salesData={salesOverview}/>}
-            {orderStatus && <OrderStatisticsCard orderStatus={orderStatus} setOrderStatus={setOrderStatus}/>}
+          <div className="flex gap-5 flex-col lg:flex-row">
+            <div className="flex-1">
+              {salesOverview && <SalesOverviewChart salesData={salesOverview} />}
+            </div>
+            <div className="w-[284px] ">
+              {orderStatus && <OrderStatisticsCard orderStatus={orderStatus} setOrderStatus={setOrderStatus} />}
+            </div>
           </div>
         </div>
-        <div className="flex-1 flex flex-col gap-5">
+        <div className="flex flex-col gap-5 w-96">
           <img src={Banner} alt="" />
-          {productStatus && <TopSellingCategories data={productStatus} setProductStatus={setProductStatus}/>}
+          {productStatus && <TopSellingCategories data={productStatus}/>}
         </div>
       </div>
     </div>
