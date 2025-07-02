@@ -40,10 +40,10 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
     };
 
   return (
-    <div className="overflow-x-auto rounded shadow">
-        <div className="max-h-[450px] overflow-y-auto">
-            <table className="min-w-full bg-white text-sm text-left">
-            <thead className="bg-gray-50 text-gray-700 sticky top-0 z-10">
+    <div className="overflow-x-auto w-full rounded shadow">
+        <div className="max-h-[450px] w-full overflow-y-auto">
+            <table className="w-full bg-white text-sm text-left">
+            <thead className="bg-gray-50 text-gray-700 sticky top-0 z-1">
                 <tr>
                     <th className="px-4 py-3 font-semibold bg-gray-50">Customer</th>
                     <th className="px-4 py-3 font-semibold bg-gray-50">Order ID</th>

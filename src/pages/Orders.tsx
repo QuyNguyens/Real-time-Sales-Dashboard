@@ -8,6 +8,7 @@ import { fetchOrdersPage } from "../features/orders/ordersThunks";
 import type { RootState } from "../app/store";
 import type { AppDispatch } from "../app/store"; 
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
+import StackedOrderChart from "./StackedOrderChart";
 
 const Orders = () => {
   const currentPage = useSelector((state: RootState) => state.orders.currentPage);
@@ -44,9 +45,9 @@ const Orders = () => {
   };
 
   return (
-    <div className="flex h-full">
-      <div className="flex-1 flex flex-col justify-between bg-white">
-        <div>
+    <div className="flex flex-col xl:flex-row h-full gap-5 items-start xl:items-center">
+      <div className="w-full h-full flex flex-col justify-between bg-white">
+        <div className="w-full">
           <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent Orders</h2>
           <OrdersTable data={orders} />
         </div>
@@ -59,7 +60,9 @@ const Orders = () => {
           <ItemsPerPage itemsPerPage={itemsPerPage} setItemsPerPage={handleSetItemsPerPage} />
         </div>
       </div>
-      <div className="w-80"></div>
+      <div className="w-96">
+        <StackedOrderChart/>
+      </div>
     </div>
   );
 };

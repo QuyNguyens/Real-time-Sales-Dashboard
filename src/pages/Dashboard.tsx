@@ -146,7 +146,7 @@ const Dashboard = () => {
       <h1 className="text-xl font-semibold">Sales Dashboard</h1>
       <div className="flex flex-col xl:flex-row gap-5">
         <div className="flex-1 flex flex-col gap-5">
-          <div className="flex gap-5">
+          <div className="flex gap-5 flex-wrap">
             <TotalItem title="Total Products" amount={productsCounts} bgColor="bg-blue-500" icon={ShoppingCartIcon} />
             <TotalItem title="Total Users" amount={usersCounts} bgColor="bg-purple-500" icon={UserCircleIcon} />
             <TotalItem title="Total Orders" amount={ordersCounts} bgColor="bg-orange-500" icon={ChartBarIcon} />

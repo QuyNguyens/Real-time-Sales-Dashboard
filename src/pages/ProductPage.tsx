@@ -47,8 +47,8 @@ const ProductPage = () => {
     dispatch(setItemsPerPage(value));
     };
   return (
-    <div className="flex gap-5 h-full items-center">
-      <div className="flex-1 flex flex-col h-full justify-between bg-white">
+    <div className="flex flex-col xl:flex-row gap-5 h-full items-start xl:items-center">
+      <div className="w-full flex flex-col h-full justify-between bg-white">
         <div>
           <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent Products</h2>
           <ProductTable data={products} />

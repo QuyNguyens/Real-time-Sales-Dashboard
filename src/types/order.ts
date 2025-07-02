@@ -40,3 +40,28 @@ export interface OrderStatus{
   cancelled: number;
 }
 
+export interface DayStat {
+  count: number;
+  totalAmount: number;
+}
+
+export type Weekday =
+  | "sunday"
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday";
+
+export type WeeklyStatData = {
+  [key in Weekday]: DayStat;
+} & {
+  weekTotal: number;
+};
+
+export interface OrderWeekBreakdownResponse {
+  thisWeek: WeeklyStatData;
+  sameWeekLastMonth: WeeklyStatData;
+  sameWeekLastYear: WeeklyStatData;
+}

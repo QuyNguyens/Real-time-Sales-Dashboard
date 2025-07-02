@@ -73,7 +73,7 @@ const Users = () => {
   };
 
   return (
-    <div className="flex h-full gap-5">
+    <div className="flex flex-col xl:flex-row h-full gap-5">
       <div className="flex-1 h-full flex flex-col justify-between bg-white">
         <div>
           <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent users</h2>

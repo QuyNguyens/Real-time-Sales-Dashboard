@@ -1,4 +1,4 @@
-import type { Order, OrderStatus, SaleOverView } from "../types/order";
+import type { Order, OrderStatus, OrderWeekBreakdownResponse, SaleOverView } from "../types/order";
 import type { PaginatedResponse } from "../types/user";
 import axiosClient from "./axiosClient";
 
@@ -39,6 +39,11 @@ const orderApi = {
         const res = await axiosClient.get('/api/status-count',{
             params: {filter}
         });
+        return res.data;
+    },
+
+    getStats: async () :Promise<OrderWeekBreakdownResponse> => {
+        const res = await axiosClient.get('/api/order-per-week');
         return res.data;
     },
 
