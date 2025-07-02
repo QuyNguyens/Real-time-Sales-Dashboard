@@ -3,7 +3,8 @@ import {
   ClipboardDocumentListIcon,
   UserGroupIcon,
   CreditCardIcon,
-  CloudArrowDownIcon
+  CloudArrowDownIcon,
+  Cog6ToothIcon
 } from '@heroicons/react/24/outline';
 
 export interface SidebarItem {
@@ -37,6 +38,11 @@ const sidebarItems: SidebarItem[] = [
     label: 'Fetch Data',
     path: '/fetch-data',
     icon: CloudArrowDownIcon,
+  },
+  {
+    label: 'Settings',
+    path: '/settings',
+    icon: Cog6ToothIcon,
   },
 ];
 

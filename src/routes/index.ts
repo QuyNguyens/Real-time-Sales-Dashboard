@@ -8,6 +8,7 @@ const OrdersPage = lazy(() => import('../pages/Orders'));
 const ProductPage = lazy(() => import('../pages/ProductPage'));
 const UsersPage = lazy(() => import('../pages/Users'));
 const FetchDataPage = lazy(() => import('../pages/FetchData'));
+const SettingsPage = lazy(() => import('../pages/Settings'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 const routes: RouteObject[] = [
@@ -34,6 +35,10 @@ const routes: RouteObject[] = [
         {
             path: '/fetch-data',
             element: React.createElement(FetchDataPage),
+        },
+        {
+            path: '/settings',
+            element: React.createElement(SettingsPage),
         }
     ]
   },

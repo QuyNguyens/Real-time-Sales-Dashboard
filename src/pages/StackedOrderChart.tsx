@@ -10,6 +10,8 @@ import {
 } from "recharts";
 import type { OrderWeekBreakdownResponse, Weekday } from "../types/order";
 import orderApi from "../api/orders";
+import { useSelector } from "react-redux";
+import type { RootState } from "../app/store";
 
 // === Chart component ===
 
@@ -33,6 +35,7 @@ interface ChartData {
 const StackedOrderChart = () => {
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const [orderStats, setOrderStats] = useState<OrderWeekBreakdownResponse>();
+  const orderTotal = useSelector((state: RootState) => state.orders.total);
 
   useEffect(() => {
     async function fetchData() {
@@ -47,7 +50,7 @@ const StackedOrderChart = () => {
     }
 
     fetchData();
-  }, []);
+  }, [orderTotal]);
 
   const convertToStackedChartData = (
     raw: OrderWeekBreakdownResponse
