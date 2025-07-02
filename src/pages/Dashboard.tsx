@@ -81,7 +81,7 @@ const Dashboard = () => {
     };
 
     function handleRealtimeUpdate(data: any) {
-
+      console.log('co vao day: ', data);
       switch (data.type) {
           case "new_user":
             dispatch(setUserTotal(1));

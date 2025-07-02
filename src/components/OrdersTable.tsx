@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { deleteOrder } from "../features/orders/ordersThunks";
 import type { AppDispatch } from "../app/store";
 import ConfirmDialog from "./ConfirmDialog";
+import EditOrderDialog from "./EditOrderDialog";
+import orderApi from "../api/orders";
 
 interface Props {
   data: Order[];
@@ -25,6 +27,19 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
 
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [editOpen, setEditOpen] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+    const handleEditClick = (order: Order) => {
+        setSelectedOrder(order);
+        setEditOpen(true);
+    };
+
+    const handleSaveEdit = async (id: string, newStatus: Order['status']) => {
+        // Gọi API hoặc dispatch Redux update ở đây
+        const res = await orderApi.updateStatus(id, newStatus);
+
+    };
 
     const handleDeleteClick = (id: string) => {
         setSelectedId(id);
@@ -93,7 +108,7 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
                     {format(new Date(order.createdAt), "dd,MMM yyyy")}
                     </td>
                     <td className="px-4 py-3 flex items-center justify-center gap-2">
-                    <button className="p-2 rounded bg-green-100 hover:bg-green-200">
+                    <button onClick={() => handleEditClick(order)} className="p-2 rounded bg-green-100 hover:bg-green-200">
                         <PencilIcon className="w-4 h-4 text-green-700" />
                     </button>
                     <button onClick={() => handleDeleteClick(order.orderId)} className="p-2 rounded bg-red-100 hover:bg-red-200">
@@ -111,6 +126,12 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
             onCancel={() => setConfirmOpen(false)}
             onConfirm={handleConfirmDelete}
         />
+        {selectedOrder && <EditOrderDialog
+            open={editOpen}
+            onClose={() => setEditOpen(false)}
+            order={selectedOrder}
+            onSave={handleSaveEdit}
+        />}
     </div>
   );
 };

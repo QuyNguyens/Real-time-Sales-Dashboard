@@ -50,6 +50,14 @@ const orderApi = {
     create: async () =>{
         const res = await axiosClient.post('/mock/new-order');
         return res.data;
+    },
+
+    updateStatus: async (orderId: string, status: string) => {
+        const res = await axiosClient.post(`/mock/order-update`, {
+            orderId,
+            status,
+        });
+        return res.data;
     }
 }
 
