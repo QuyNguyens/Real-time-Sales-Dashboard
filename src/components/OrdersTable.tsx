@@ -8,6 +8,7 @@ import type { AppDispatch } from "../app/store";
 import ConfirmDialog from "./ConfirmDialog";
 import EditOrderDialog from "./EditOrderDialog";
 import orderApi from "../api/orders";
+import { updateItemStatus } from "../features/orders/ordersSlice";
 
 interface Props {
   data: Order[];
@@ -36,9 +37,14 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
     };
 
     const handleSaveEdit = async (id: string, newStatus: Order['status']) => {
-        // Gọi API hoặc dispatch Redux update ở đây
-        const res = await orderApi.updateStatus(id, newStatus);
-
+        try {
+            const res = await orderApi.updateStatus(id, newStatus);
+            if(res){
+                dispatch(updateItemStatus({orderId: id, status: newStatus}));
+            }
+        } catch (error) {
+            console.log('update order status failed: ',error);
+        }
     };
 
     const handleDeleteClick = (id: string) => {
@@ -57,68 +63,76 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
   return (
     <div className="overflow-x-auto w-full rounded shadow">
         <div className="max-h-[450px] w-full overflow-y-auto">
-            <table className="w-full bg-white text-sm text-left">
-            <thead className="bg-gray-50 text-gray-700 sticky top-0 z-1">
-                <tr>
-                    <th className="px-4 py-3 font-semibold bg-gray-50">Customer</th>
-                    <th className="px-4 py-3 font-semibold bg-gray-50">Order ID</th>
-                    <th className="px-4 py-3 font-semibold bg-gray-50">Amount (Tr)</th>
-                    <th className="px-4 py-3 font-semibold bg-gray-50">Status</th>
-                    <th className="px-4 py-3 font-semibold bg-gray-50">Date Ordered</th>
-                    <th className="px-4 py-3 font-semibold text-center bg-gray-50">Actions</th>
-                </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-                {data.map((order) => (
-                <tr key={order._id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                        {
-                            order.user.avatar ?
+            <table className="w-full bg-white dark:bg-black-primary text-sm text-left text-gray-800 dark:text-gray-100">
+                <thead className="bg-gray-50 dark:bg-black-primary text-gray-700 border-gray-200 border-b dark:border-gray-700 dark:text-gray-300 sticky top-0 z-1">
+                    <tr>
+                    <th className="px-4 py-3 font-semibold">Customer</th>
+                    <th className="px-4 py-3 font-semibold">Order ID</th>
+                    <th className="px-4 py-3 font-semibold">Amount (Tr)</th>
+                    <th className="px-4 py-3 font-semibold">Status</th>
+                    <th className="px-4 py-3 font-semibold">Date Ordered</th>
+                    <th className="px-4 py-3 font-semibold text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {data.map((order) => (
+                    <tr key={order._id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                        <td className="px-4 py-3">
+                        <div className="flex items-center gap-3">
+                            {order.user.avatar ? (
                             <img
-                                src={order.user.avatar || ""}
+                                src={order.user.avatar}
                                 alt={order.user.name}
                                 className="w-7 h-7 rounded-md object-cover"
-                                /> :
-                            <UserCircleIcon className="w-7 h-7 rounded-md"/>
-                        }
-                        
-                        <div>
-                            <div className="font-medium text-gray-700 text-sm capitalize">
+                            />
+                            ) : (
+                            <UserCircleIcon className="w-7 h-7 rounded-md text-gray-400" />
+                            )}
+                            <div>
+                            <div className="font-medium text-gray-700 dark:text-gray-200 text-sm capitalize">
                                 {order.user.name}
                             </div>
-                            <div className="text-gray-500 text-xs">{order.user.email}</div>
+                            <div className="text-gray-500 dark:text-gray-400 text-xs">
+                                {order.user.email}
+                            </div>
+                            </div>
                         </div>
-                    </div>
-                    </td>
-                    <td className="px-4 py-3 font-mono text-xs">
-                    {order.orderId.slice(0, 8)}...
-                    </td>
-                    <td className="px-4 py-3 font-medium text-gray-700">
+                        </td>
+                        <td className="px-4 py-3 font-mono text-xs text-gray-600 dark:text-gray-300">
+                        {order.orderId.slice(0, 8)}...
+                        </td>
+                        <td className="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">
                         {(order.amount / 1_000_000).toFixed(1)} VND
-                    </td>
-                    <td className="px-4 py-3">
-                    <span
-                        className={`w-20 flex justify-center py-1 rounded text-xs font-semibold ${statusStyles[order.status]}`}
-                    >
-                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                    </span>
-                    </td>
-                    <td className="px-4 py-3">
-                    {format(new Date(order.createdAt), "dd,MMM yyyy")}
-                    </td>
-                    <td className="px-4 py-3 flex items-center justify-center gap-2">
-                    <button onClick={() => handleEditClick(order)} className="p-2 rounded bg-green-100 hover:bg-green-200">
-                        <PencilIcon className="w-4 h-4 text-green-700" />
-                    </button>
-                    <button onClick={() => handleDeleteClick(order.orderId)} className="p-2 rounded bg-red-100 hover:bg-red-200">
-                        <TrashIcon className="w-4 h-4 text-red-700" />
-                    </button>
-                    </td>
-                </tr>
-                ))}
-            </tbody>
-            </table>
+                        </td>
+                        <td className="px-4 py-3">
+                        <span
+                            className={`w-20 flex justify-center py-1 rounded text-xs font-semibold ${statusStyles[order.status]}`}
+                        >
+                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        </span>
+                        </td>
+                        <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                        {format(new Date(order.createdAt), "dd,MMM yyyy")}
+                        </td>
+                        <td className="px-4 py-3 flex items-center justify-center gap-2">
+                        <button
+                            onClick={() => handleEditClick(order)}
+                            className="p-2 rounded bg-green-100 dark:bg-green-900 hover:bg-green-200 dark:hover:bg-green-800"
+                        >
+                            <PencilIcon className="w-4 h-4 text-green-700 dark:text-green-400" />
+                        </button>
+                        <button
+                            onClick={() => handleDeleteClick(order.orderId)}
+                            className="p-2 rounded bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800"
+                        >
+                            <TrashIcon className="w-4 h-4 text-red-700 dark:text-red-400" />
+                        </button>
+                        </td>
+                    </tr>
+                    ))}
+                </tbody>
+        </table>
+
         </div>
         <ConfirmDialog
             open={confirmOpen}

@@ -17,7 +17,7 @@ const productApi = {
         return res.data;
     },
 
-    create: async (count: number) =>{
+    create: async (count: number = 1) =>{
         const res = await axiosClient.post(`/mock/new-product?count=${count}`);
         return res.data;
     },

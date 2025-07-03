@@ -103,94 +103,97 @@ export default function OrderStatisticsCard({orderStatus, setOrderStatus}: Order
   };
 
   return (
-    <div className="relative w-full bg-white p-4 rounded-xl shadow-md">
-      <div className="flex items-center justify-between">
-        <h2 className="text-[16px] font-medium mb-2">Order Statistics</h2>
-        <OrderDaySelector options={options} iconOnly={true} onSelect={handleFilterChange} />
-      </div>
+    <div className="relative w-full bg-white dark:bg-black-primary p-4 rounded-xl shadow-md">
+  <div className="flex items-center justify-between">
+    <h2 className="text-base font-medium mb-2 text-gray-800 dark:text-white">
+      Order Statistics
+    </h2>
+    <OrderDaySelector options={options} iconOnly={true} onSelect={handleFilterChange} />
+  </div>
 
-      <div className="mt-4 p-3 bg-blue-50 inline-flex rounded-sm">
-        <ArrowTrendingUpIcon className="w-5 h-5 text-blue-500 font-bold"/>
-      </div>
-      <div className="my-4 flex flex-col">
-        <span className="text-xs font-medium">TOTAL ORDERS</span>
-        <span className="text-xl font-semibold">{total.toLocaleString()}</span>
-      </div>
-        {/* Chart + Legend shared container */}
-        <div className="relative h-[200px]">
-            {/* Pie Chart */}
-            <ResponsiveContainer className='outline-none border-none focus:outline-none' width="100%" height="100%">
-                <PieChart>
-                    <Pie
-                    data={data}
-                    dataKey="value"
-                    startAngle={180}
-                    endAngle={0}
-                    innerRadius={70}
-                    outerRadius={100}
-                    stroke="none"
-                    isAnimationActive={false}
-                    onMouseLeave={handleMouseLeave}
-                    >
-                    {data.map((entry, index) => {
-                        const baseColor = COLORS[index % COLORS.length];
-                        const fillColor =
-                        activeIndex === index
-                            ? tinycolor(baseColor).darken(2).toHexString()
-                            : tinycolor(baseColor).lighten(2).toHexString();
+  <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950 inline-flex rounded-sm">
+    <ArrowTrendingUpIcon className="w-5 h-5 text-blue-500 font-bold" />
+  </div>
 
-                        return (
-                        <Cell
-                            key={index}
-                            fill={fillColor}
-                            onMouseMove={(e) => handleMouseMove(e, entry, index)}
-                            className="focus:outline-none"
-                        />
-                        );
-                    })}
-                    </Pie>
-                </PieChart>
-            </ResponsiveContainer>
+  <div className="my-4 flex flex-col">
+    <span className="text-xs font-medium text-gray-600 dark:text-gray-300">TOTAL ORDERS</span>
+    <span className="text-xl font-semibold text-gray-900 dark:text-white">
+      {total.toLocaleString()}
+    </span>
+  </div>
 
-            {/* Total in center */}
-            <div className="absolute top-16 left-1/2 -translate-x-1/2 text-center pointer-events-none">
-                <div className="text-base font-bold">Total</div>
-                <div className="text-sm font-semibold">{total}</div>
-            </div>
+  <div className="relative h-[200px]">
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={data}
+          dataKey="value"
+          startAngle={180}
+          endAngle={0}
+          innerRadius={70}
+          outerRadius={100}
+          stroke="none"
+          isAnimationActive={false}
+          onMouseLeave={handleMouseLeave}
+        >
+          {data.map((entry, index) => {
+            const baseColor = COLORS[index % COLORS.length];
+            const fillColor =
+              activeIndex === index
+                ? tinycolor(baseColor).darken(2).toHexString()
+                : tinycolor(baseColor).lighten(2).toHexString();
 
-            {/* Legend - Absolute bottom */}
-            <div className="absolute bottom-5 left-0 right-0 z-10 bg-white/80 backdrop-blur-sm max-h-12 overflow-y-auto px-2 py-1 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent scroll-smooth">
-                <div className="flex flex-col items-center justify-center gap-2">
-                    {data.map((entry, index) => (
-                    <div key={index} className="ml-8 flex w-1/2 items-start gap-2 justify-start">
-                        <div
-                        className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                        ></div>
-                        <span className="whitespace-nowrap text-xs">{entry.name}</span>
-                    </div>
-                    ))}
-                </div>
-            </div>
-        </div>
+            return (
+              <Cell
+                key={index}
+                fill={fillColor}
+                onMouseMove={(e) => handleMouseMove(e, entry, index)}
+                className="focus:outline-none"
+              />
+            );
+          })}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
 
-        {/* Tooltip */}
-        {tooltip.visible && (
-            <motion.div
-            className="fixed px-3 py-1 text-sm text-white rounded shadow z-50 pointer-events-none whitespace-nowrap"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            style={{
-                top: tooltip.y - 40,
-                left: tooltip.x -55,
-                transform: "translateX(-50%)",
-                backgroundColor: tooltip.color,
-            }}
-            >
-            {tooltip.content}
-            </motion.div>
-        )}
+    <div className="absolute top-16 left-1/2 -translate-x-1/2 text-center pointer-events-none">
+      <div className="text-base font-bold text-gray-900 dark:text-white">Total</div>
+      <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">{total}</div>
     </div>
+
+    <div className="absolute bottom-5 left-0 right-0 z-10 bg-white/80 dark:bg-black-primary/80 backdrop-blur-sm max-h-12 overflow-y-auto px-2 py-1 scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent scroll-smooth">
+      <div className="flex flex-col items-center justify-center gap-2">
+        {data.map((entry, index) => (
+          <div key={index} className="ml-8 flex w-1/2 items-start gap-2 justify-start">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: COLORS[index % COLORS.length] }}
+            ></div>
+            <span className="whitespace-nowrap text-xs text-gray-700 dark:text-gray-300">
+              {entry.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {tooltip.visible && (
+    <motion.div
+      className="fixed px-3 py-1 text-sm text-white rounded shadow z-50 pointer-events-none whitespace-nowrap"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      style={{
+        top: tooltip.y - 40,
+        left: tooltip.x - 55,
+        transform: "translateX(-50%)",
+        backgroundColor: tooltip.color, // giữ nguyên theo từng phần
+      }}
+    >
+      {tooltip.content}
+    </motion.div>
+  )}
+</div>
   );
 }

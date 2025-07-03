@@ -16,8 +16,8 @@ const userApi = {
         return res.data;
     },
 
-    create: async () =>{
-        const res = await axiosClient.post('/mock/new-user');
+    create: async (count: number = 1) =>{
+        const res = await axiosClient.post(`/mock/new-user?count=${count}`);
         return res.data;
     },
 

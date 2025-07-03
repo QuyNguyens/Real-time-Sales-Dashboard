@@ -47,82 +47,84 @@ const TopSellingCategories = ({ data }: Props) => {
   };
 
   return (
-    <div className="bg-white p-5 rounded-xl shadow-md w-full max-w-md">
+    <div className="bg-white dark:bg-black-primary p-5 rounded-xl shadow-md w-full max-w-md">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold text-[16px]">Top Selling Categories</h2>
-            <OrderDaySelector options={options} iconOnly={false} onSelect={handleFilterChange}/>
+            <h2 className="font-semibold text-base text-gray-800 dark:text-white">
+            Top Selling Categories
+            </h2>
+            <OrderDaySelector options={options} iconOnly={false} onSelect={handleFilterChange} />
         </div>
 
         {/* Progress Bar */}
-        <div className="flex w-full gap-1 h-[6px] overflow-hidden bg-gray-100">
-        {entries.map(([type, value], idx) => (
+        <div className="flex w-full gap-1 h-[6px] overflow-hidden bg-gray-100 dark:bg-gray-700 rounded">
+            {entries.map(([type, value], idx) => (
             <div
                 key={type}
                 className={`${GROWTH_COLORS[idx % GROWTH_COLORS.length]} h-full`}
                 style={{ width: `${value.growth}%` }}
                 title={`${type}: ${value.growth.toFixed(2)}%`}
-                />
+            />
             ))}
         </div>
 
         {/* Overall Total */}
         <div className="mt-2 flex justify-between items-center mb-2">
-            <span className="text-sm text-gray-500">Overall Sales</span>
-            <span className="text-[16px] font-semibold">
-                {totalSales.toLocaleString()}
+            <span className="text-sm text-gray-500 dark:text-gray-400">Overall Sales</span>
+            <span className="text-base font-semibold text-gray-900 dark:text-white">
+            {totalSales.toLocaleString()}
             </span>
         </div>
 
         {/* Category List */}
         <div className="flex flex-col gap-4">
-            {/* Rows */}
             {entries.map(([type, info], idx) => {
-                const borderColor = BORDER_GROWTH_COLORS[idx % BORDER_GROWTH_COLORS.length];
-                const bgColor = GROWTH_COLORS[idx % GROWTH_COLORS.length];
+            const borderColor = BORDER_GROWTH_COLORS[idx % BORDER_GROWTH_COLORS.length];
+            const bgColor = GROWTH_COLORS[idx % GROWTH_COLORS.length];
 
-                return (
+            return (
                 <div
-                    key={type}
-                    className="grid grid-cols-[2fr_1fr_1fr_1fr] items-center gap-2"
+                key={type}
+                className="grid grid-cols-[2fr_1fr_1fr_1fr] items-center gap-2"
                 >
-                    {/* Cột 1: Tên loại */}
-                    <div className="flex items-center gap-2 min-w-0">
+                {/* Cột 1: Tên loại */}
+                <div className="flex items-center gap-2 min-w-0">
                     <span
-                        className={`w-3 h-3 rounded-full bg-white border-2 ${borderColor}`}
+                    className={`w-3 h-3 rounded-full bg-white dark:bg-gray-900 border-2 ${borderColor}`}
                     />
                     <span
-                        className="text-sm font-medium text-gray-600 truncate"
-                        title={type}
+                    className="text-sm font-medium text-gray-600 dark:text-gray-300 truncate"
+                    title={type}
                     >
-                        {type}
+                    {type}
                     </span>
-                    </div>
+                </div>
 
-                    {/* Cột 2: Amount */}
-                    <div className="text-sm font-semibold text-gray-600 text-left">
+                {/* Cột 2: Amount */}
+                <div className="text-sm font-semibold text-gray-600 dark:text-gray-200 text-left">
                     {info.amount.toLocaleString()}
-                    </div>
+                </div>
 
-                    {/* Cột 3: Gross */}
-                    <div className="text-xs text-gray-500 text-left">
+                {/* Cột 3: Gross */}
+                <div className="text-xs text-gray-500 dark:text-gray-400 text-left">
                     {info.growth.toFixed(0)}% Gross
-                    </div>
+                </div>
 
-                    {/* Cột 4: Compare */}
-                    <div className="flex justify-end items-center">
+                {/* Cột 4: Compare */}
+                <div className="flex justify-end items-center">
                     <div
-                        className={`flex items-center gap-1 px-1 py-0.5 text-[10px] text-white font-semibold rounded shrink-0 ${bgColor}`}
+                    className={`flex items-center gap-1 px-1 py-0.5 text-[10px] text-white font-semibold rounded shrink-0 ${bgColor}`}
                     >
-                        {(Math.random() * 4).toFixed(2)}%
-                        <ArrowTrendingUpIcon className="w-3 h-3" />
-                    </div>
+                    {(Math.random() * 4).toFixed(2)}%
+                    <ArrowTrendingUpIcon className="w-3 h-3" />
                     </div>
                 </div>
-                );
+                </div>
+            );
             })}
         </div>
     </div>
+
     );
 };
 

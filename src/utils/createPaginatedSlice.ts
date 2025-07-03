@@ -1,8 +1,10 @@
 import { createSlice, type PayloadAction, type Draft } from "@reduxjs/toolkit";
+import type { OrderStatusPayload, Status } from "../types/order";
 
 interface HasId {
   _id: string;
   orderId?: string;
+  status?: Status;
 }
 
 
@@ -66,6 +68,19 @@ export function createPaginatedSlice<T extends HasId>(name: string) {
       decrementTotal(state) {
         state.total = state.total - 1;
       },
+      updateItemStatus(state, action: PayloadAction<OrderStatusPayload>){
+        const page = state.currentPage;
+        const { orderId, status } = action.payload;
+
+        if (state.pages[page]) {
+          const items = state.pages[page];
+
+          const item = items.find((item: any) => item.orderId === orderId);
+          if (item) {
+            item.status = status;
+          }
+        }
+      }
     },
   });
 }

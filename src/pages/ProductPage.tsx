@@ -48,9 +48,9 @@ const ProductPage = () => {
     };
   return (
     <div className="flex flex-col xl:flex-row gap-5 h-full items-start xl:items-center">
-      <div className="w-full flex flex-col h-full justify-between bg-white">
+      <div className="w-full flex flex-col h-full justify-between bg-white dark:bg-black-primary">
         <div>
-          <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent Products</h2>
+          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">Recent Products</h2>
           <ProductTable data={products} />
         </div>
         <div className="flex justify-between p-4">

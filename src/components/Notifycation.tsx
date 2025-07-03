@@ -150,7 +150,7 @@ const NotificationPanel = () => {
 
   return (
     <Popover className="relative">
-      <PopoverButton className="relative w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 outline-none transition">
+      <PopoverButton className="relative w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 outline-none transition">
         <BellIcon className="w-5 h-5 text-gray-700 dark:text-white" />
         {unreadCount > 0 && (
           <span className="absolute top-1 right-1 inline-flex items-center justify-center w-3 h-3 text-[8px] font-bold leading-none text-white bg-purple-500 rounded-full">
@@ -168,7 +168,7 @@ const NotificationPanel = () => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <PopoverPanel className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10">
+        <PopoverPanel className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Notifications</h3>
             <span className="bg-purple-500 text-white text-xs font-semibold px-2 py-1 rounded-md">
@@ -176,7 +176,7 @@ const NotificationPanel = () => {
             </span>
           </div>
 
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700 max-h-80 overflow-y-auto">
+          <ul className="max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800 scroll-smooth">
             {notifications.length === 0 && (
               <li className="text-center text-sm text-gray-500 py-4 dark:text-gray-400">
                 No notifications yet.
@@ -186,8 +186,8 @@ const NotificationPanel = () => {
               <li
                 key={notif.id}
                 onClick={() => handleNotificationClick(notif.id)}
-                className={`flex items-center gap-3 px-4 py-3 cursor-pointer ${
-                  !notif.read ? 'bg-gray-50 dark:bg-gray-700' : ''
+                className={`flex items-center gap-3 px-4 py-3 cursor-pointer border-b border-gray-200 dark:border-gray-700 ${
+                  !notif.read ? 'bg-gray-50 dark:bg-gray-800' : ''
                 } hover:bg-gray-100 dark:hover:bg-gray-600`}
               >
                 {notif.avatar ? (

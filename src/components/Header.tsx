@@ -6,7 +6,7 @@ import ThemeSelector from './ThemesSelector'
 
 const Header = () => {
   return (
-     <div className="w-full flex justify-end items-center gap-4 py-4 px-8 sticky top-0 z-40 bg-white shadow">
+     <div className="w-full flex justify-end items-center gap-4 py-4 px-8 sticky top-0 z-40 bg-white dark:bg-black dark:text-white shadow">
         <LanguageSelector/>
         <ThemeSelector/>
         <NotificationPanel/>

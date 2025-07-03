@@ -15,7 +15,8 @@ export const {
   invalidatePage,
   setItemsPerPage,
   deleteItemFromPage,
-  decrementTotal
+  decrementTotal,
+  updateItemStatus
 } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

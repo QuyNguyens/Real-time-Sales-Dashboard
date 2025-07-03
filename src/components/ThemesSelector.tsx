@@ -23,7 +23,7 @@ const ThemeSelector = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+      className="w-8 h-8 flex items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
       aria-label="Toggle Theme"
     >
       {theme === 'light' ? (

@@ -4,7 +4,7 @@ import Logo from '../assets/react.svg';
 
 const Sidebar = () => {
   return (
-    <div className="w-16 md:w-48 bg-gray-800 border-r sticky top-0 left-0 self-start h-screen">
+    <div className="w-16 md:w-48 bg-gray-950 border-r sticky top-0 left-0 self-start h-screen">
       <div className="flex flex-col md:flex-row gap-1 justify-center items-center py-4 border-b border-gray-400">
         <img src={Logo} alt="Logo" className="w-8 h-8" />
         <span className="text-white text-xl hidden md:block">xintra</span>

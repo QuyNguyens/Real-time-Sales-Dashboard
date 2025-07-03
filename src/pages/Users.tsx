@@ -74,9 +74,9 @@ const Users = () => {
 
   return (
     <div className="flex flex-col xl:flex-row h-full gap-5">
-      <div className="flex-1 h-full flex flex-col justify-between bg-white">
+      <div className="flex-1 h-full flex flex-col justify-between bg-white dark:bg-black-primary">
         <div>
-          <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent users</h2>
+          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">Recent users</h2>
           <UserTable data={users} />
         </div>
         <div className="flex justify-between p-4">
@@ -88,9 +88,9 @@ const Users = () => {
           <ItemsPerPage itemsPerPage={itemsPerPage} setItemsPerPage={handleSetItemsPerPage} />
         </div>
       </div>
-      <div className="w-96 bg-white rounded-md p-2">
+      <div className="bg-white dark:bg-black-primary dark:text-white rounded-md p-2">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-medium text-gray-700">Top Users</h2>
+          <h2 className="text-xl font-medium dark:text-gray-300 text-gray-700">Top Users</h2>
           <OrderDaySelector options={options} iconOnly={true} onSelect={handleFilterChange}/>
         </div>
         <TopUsersTable data={topUsers}/>

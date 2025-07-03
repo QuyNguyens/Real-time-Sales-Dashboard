@@ -46,9 +46,9 @@ const Orders = () => {
 
   return (
     <div className="flex flex-col xl:flex-row h-full gap-5 items-start xl:items-center">
-      <div className="w-full h-full flex flex-col justify-between bg-white">
+      <div className="w-full h-full flex flex-col justify-between bg-white dark:bg-black-primary">
         <div className="w-full">
-          <h2 className="pl-4 py-6 text-xl text-gray-700 font-medium">Recent Orders</h2>
+          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">Recent Orders</h2>
           <OrdersTable data={orders} />
         </div>
         <div className="flex justify-between p-4">

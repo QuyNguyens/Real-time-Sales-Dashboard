@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="w-9 h-9 flex items-center justify-center rounded border border-gray-200 hover:bg-gray-100 disabled:opacity-50"
+        className="w-9 h-9 flex items-center justify-center rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50"
       >
         &lt;
       </button>
@@ -40,10 +40,12 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
         <button
           key={idx}
           onClick={() => typeof page === 'number' && onPageChange(page)}
-          className={`w-9 h-9 text-base16 flex items-center justify-center rounded-md border 
-            ${page === currentPage
-              ? 'border-primary-100 bg-blue-300 text-primary-100 font-medium'
-              : 'border-gray-10 text-text-primary font-normal hover:bg-gray-50'} 
+          className={`w-9 h-9 text-base16 flex items-center justify-center rounded-md border
+            ${
+              page === currentPage
+                ? 'border-primary-100 bg-blue-300 dark:bg-blue-600 text-primary-100 font-medium'
+                : 'border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
+            }
             ${typeof page === 'string' ? 'cursor-default' : ''}`}
           disabled={typeof page === 'string'}
         >
@@ -54,7 +56,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
       <button
         onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="w-9 h-9 flex items-center justify-center rounded border border-gray-200 hover:bg-gray-100 disabled:opacity-50"
+        className="w-9 h-9 flex items-center justify-center rounded border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50"
       >
         &gt;
       </button>

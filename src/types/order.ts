@@ -24,7 +24,7 @@ export interface Order {
   _id: string;
   orderId: string;
   userId: string;
-  status: "new" | "processing" | "shipped" | "delivered" | "cancelled";
+  status: Status;
   amount: number;
   timestamp: string;
   createdAt: string;
@@ -65,3 +65,11 @@ export interface OrderWeekBreakdownResponse {
   sameWeekLastMonth: WeeklyStatData;
   sameWeekLastYear: WeeklyStatData;
 }
+
+export interface OrderStatusPayload{
+  orderId: string;
+  status: Status;
+}
+
+export type Status =
+  "new" | "processing" | "shipped" | "delivered" | "cancelled";

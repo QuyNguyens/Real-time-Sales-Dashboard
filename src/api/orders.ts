@@ -47,8 +47,8 @@ const orderApi = {
         return res.data;
     },
 
-    create: async () =>{
-        const res = await axiosClient.post('/mock/new-order');
+    create: async (count: number = 1) =>{
+        const res = await axiosClient.post(`/mock/new-order?orderCount=${count}`);
         return res.data;
     },
 

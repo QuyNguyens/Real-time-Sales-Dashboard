@@ -1,18 +1,19 @@
 /** @type {import('tailwindcss').Config} */
+import scrollbar from "tailwind-scrollbar";
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
     extend: {
       colors: {
-        "blue-920": "#06293b",
+        "black-primary": "#19191c",
+        "black-secondary": "#2d2d30",
       },
       fontSize: {
-        base12: "12px",
-        base16: "1rem",
-        base18: "18px",
+        base10: "10px",
       },
     },
   },
-  plugins: [],
+  plugins: [scrollbar()],
 };

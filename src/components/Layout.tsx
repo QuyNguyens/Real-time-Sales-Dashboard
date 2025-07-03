@@ -9,7 +9,7 @@ const Layout = () => {
 
       <div className="flex w-full flex-col min-h-screen min-w-0">
         <Header />
-        <div className="w-full h-full overflow-y-auto bg-gray-100 p-5">
+        <div className="w-full h-full overflow-y-auto bg-gray-100 dark:bg-black-secondary p-5 dark:text-white">
           <Outlet />
         </div>
       </div>

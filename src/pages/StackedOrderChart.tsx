@@ -64,69 +64,63 @@ const StackedOrderChart = () => {
   };
 
   return (
-    <div className="p-4 bg-white rounded-xl shadow w-full max-w-4xl mx-auto">
-      <h2 className="text-lg text-gray-600 font-semibold mb-4">Sales statistics</h2>
-        <div className="flex flex-wrap justify-center gap-2">
-          <div className="flex flex-col p-4 bg-gray-100 rounded-sm w-fit">
-            <span className="text-sm">Total this week</span>
-            {orderStats?.thisWeek.weekTotal && (
-              <span className="font-medium text-sm">
-                VND {(orderStats?.thisWeek.weekTotal / 1_000_000).toFixed(1)} Tr
-              </span>
-            )}
-          </div>
+    <div className="p-4 bg-white dark:bg-black-primary rounded-xl shadow w-full max-w-4xl mx-auto">
+      <h2 className="text-lg text-gray-600 dark:text-gray-200 font-semibold mb-4">
+        Sales statistics
+      </h2>
 
-          <div className="flex flex-col p-4 bg-gray-100 rounded-sm w-fit">
-            <span className="text-sm">Total this month</span>
-            {orderStats?.sameWeekLastMonth.weekTotal && (
-              <span className="font-medium text-sm text-green-500">
-                VND {(orderStats?.sameWeekLastMonth.weekTotal / 1_000_000).toFixed(1)} Tr
-              </span>
-            )}
-          </div>
-
-          <div className="flex flex-col p-4 bg-gray-100 rounded-sm w-fit">
-            <span className="text-sm">Total this year</span>
-            {orderStats?.sameWeekLastYear.weekTotal && (
-              <span className="font-medium text-sm text-red-500">
-                VND {(orderStats?.sameWeekLastYear.weekTotal / 1_000_000).toFixed(1)} Tr
-              </span>
-            )}
-          </div>
+      <div className="flex flex-wrap justify-center gap-2 mb-5">
+        <div className="flex flex-col p-4 bg-gray-100 dark:bg-gray-800 rounded-sm w-fit">
+          <span className="text-sm text-gray-600 dark:text-gray-300">Total this week</span>
+          {orderStats?.thisWeek.weekTotal && (
+            <span className="font-medium text-sm text-gray-700 dark:text-gray-100">
+              VND {(orderStats?.thisWeek.weekTotal / 1_000_000).toFixed(1)} Tr
+            </span>
+          )}
         </div>
+
+        <div className="flex flex-col p-4 bg-gray-100 dark:bg-gray-800 rounded-sm w-fit">
+          <span className="text-sm text-gray-600 dark:text-gray-300">Total this month</span>
+          {orderStats?.sameWeekLastMonth.weekTotal && (
+            <span className="font-medium text-sm text-green-500">
+              VND {(orderStats?.sameWeekLastMonth.weekTotal / 1_000_000).toFixed(1)} Tr
+            </span>
+          )}
+        </div>
+
+        <div className="flex flex-col p-4 bg-gray-100 dark:bg-gray-800 rounded-sm w-fit">
+          <span className="text-sm text-gray-600 dark:text-gray-300">Total this year</span>
+          {orderStats?.sameWeekLastYear.weekTotal && (
+            <span className="font-medium text-sm text-red-500">
+              VND {(orderStats?.sameWeekLastYear.weekTotal / 1_000_000).toFixed(1)} Tr
+            </span>
+          )}
+        </div>
+      </div>
+
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData} barSize={10}>
-            <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip />
-            <Legend wrapperStyle={{ fontSize: 12 }} />
-            <Bar
-              dataKey="thisWeek"
-              stackId="orders"
-              fill="#3b82f6"
-              name="This Week"
-              radius={[4, 4, 4, 4]}
+            <XAxis dataKey="name" tick={{ fontSize: 12, fill: "#6b7280" }} />
+            <YAxis tick={{ fontSize: 12, fill: "#6b7280" }} />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#1f2937", // dark:bg-gray-800
+                borderColor: "#4b5563", // dark:border-gray-600
+                color: "#f9fafb", // dark:text-white
+              }}
+              labelStyle={{ color: "#f9fafb" }}
+              itemStyle={{ color: "#f9fafb" }}
             />
-            <Bar
-              dataKey="thisMonth"
-              stackId="orders"
-              fill="#a855f7"
-              name="This Month"
-              radius={[4, 4, 4, 4]}
-            />
-
-            <Bar
-              dataKey="thisYear"
-              stackId="orders"
-              fill="#f97316"
-              name="This Year"
-              radius={[4, 4, 4, 4]}
-            />
+            <Legend wrapperStyle={{ fontSize: 12, color: "#f9fafb" }} />
+            <Bar dataKey="thisWeek" stackId="orders" fill="#3b82f6" name="This Week" radius={[4, 4, 4, 4]} />
+            <Bar dataKey="thisMonth" stackId="orders" fill="#a855f7" name="This Month" radius={[4, 4, 4, 4]} />
+            <Bar dataKey="thisYear" stackId="orders" fill="#f97316" name="This Year" radius={[4, 4, 4, 4]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
     </div>
+
   );
 };
 
