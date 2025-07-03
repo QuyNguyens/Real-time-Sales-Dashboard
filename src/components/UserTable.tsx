@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { format } from "date-fns/format";
-import { PencilIcon, TrashIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { TrashIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
 import { deleteUser } from "../features/users/usersThunks";
 import type { AppDispatch } from "../app/store";
