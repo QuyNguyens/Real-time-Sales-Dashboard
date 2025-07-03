@@ -83,8 +83,8 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
                         <div className="flex items-center gap-3">
                             {order?.user?.avatar ? (
                             <img
-                                src={order.user.avatar}
-                                alt={order.user.name}
+                                src={order?.user?.avatar}
+                                alt={order?.user?.name}
                                 className="w-7 h-7 rounded-md object-cover"
                             />
                             ) : (
@@ -92,10 +92,10 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
                             )}
                             <div>
                             <div className="font-medium text-gray-700 dark:text-gray-200 text-sm capitalize">
-                                {order.user.name}
+                                {order?.user?.name}
                             </div>
                             <div className="text-gray-500 dark:text-gray-400 text-xs">
-                                {order.user.email}
+                                {order?.user?.email}
                             </div>
                             </div>
                         </div>
