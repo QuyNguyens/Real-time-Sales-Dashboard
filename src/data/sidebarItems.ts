@@ -8,39 +8,39 @@ import {
 } from '@heroicons/react/24/outline';
 
 export interface SidebarItem {
-  label: string;
+  labelKey: string;
   path: string;
   icon: React.ElementType;
 }
 
 const sidebarItems: SidebarItem[] = [
   {
-    label: 'Dashboard',
+    labelKey: 'sidebar.dashboard',
     path: '/',
     icon: HomeIcon,
   },
   {
-    label: 'Orders',
+    labelKey: 'sidebar.orders',
     path: '/orders',
     icon: ClipboardDocumentListIcon,
   },
   {
-    label: 'Products',
+    labelKey: 'sidebar.products',
     path: '/products',
     icon: CreditCardIcon,
   },
   {
-    label: 'Users',
+    labelKey: 'sidebar.users',
     path: '/users',
     icon: UserGroupIcon,
   },
   {
-    label: 'Fetch Data',
+    labelKey: 'sidebar.fetchData',
     path: '/fetch-data',
     icon: CloudArrowDownIcon,
   },
   {
-    label: 'Settings',
+    labelKey: 'sidebar.settings',
     path: '/settings',
     icon: Cog6ToothIcon,
   },

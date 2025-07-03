@@ -3,6 +3,7 @@ import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/re
 import { BellIcon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { useBroadcastChannel } from '../hook/useBroadcastChannel';
 import type { Product } from '../types/product';
+import { useTranslation } from 'react-i18next';
 
 type NotificationItem = {
   id: string;
@@ -40,6 +41,7 @@ const adminFake = [
 const NotificationPanel = () => {
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
+  const { t } = useTranslation();
 
   const updateStatus = (data: any) => {
     const admin = adminFake[Math.floor(Math.random() * adminFake.length)];
@@ -48,8 +50,8 @@ const NotificationPanel = () => {
       case "order_status_update":
           newNotif = {
           id: crypto.randomUUID(),
-          title: data.title || 'Order Updates',
-          message: <p className="text-gray-600 dark:text-gray-300 text-sm">Order <span className='text-pink-500'>#{data.orderId.slice(0, 5)}</span>... has been {data.status}.</p>,
+          title: data.title || t("orderUpdate"),
+          message: <p className="text-gray-600 dark:text-gray-300 text-sm">{t("order")} <span className='text-pink-500'>#{data.orderId.slice(0, 5)}</span>... {t("hasBeen")} {data.status}.</p>,
           time: new Date().toLocaleTimeString(),
           icon: <ShoppingCartIcon className='w-5 h-5 font-medium'/>,
           read: false,
@@ -58,8 +60,8 @@ const NotificationPanel = () => {
       case "new_user":
         newNotif = {
           id: crypto.randomUUID(),
-          title: data.title || 'Created User',
-          message: <p className="text-gray-600 dark:text-gray-300 text-sm"><span className='text-purple-500'>{admin.name}</span> has been created <span className='text-orange-500'>{data.name}</span></p>,
+          title: data.title || t("createdUser"),
+          message: <p className="text-gray-600 dark:text-gray-300 text-sm"><span className='text-purple-500'>{admin.name}</span> {t("hasBeenCreated")} <span className='text-orange-500'>{data.name}</span></p>,
           time: new Date().toLocaleTimeString(),
           avatar: admin.avatar,
           read: false,
@@ -70,8 +72,8 @@ const NotificationPanel = () => {
         data.products.map((pro : Product) =>{
           newNotif = {
             id: crypto.randomUUID(),
-            title: data.title || 'Created Product',
-            message: <p className="text-gray-600 dark:text-gray-300 text-sm">Product <span className='text-pink-500'>#{pro._id.slice(0, 5)}</span>... has been add by <span className='text-purple-500'>{admin.name}</span></p>,
+            title: data.title || t("createdProduct"),
+            message: <p className="text-gray-600 dark:text-gray-300 text-sm">{t("product")} <span className='text-pink-500'>#{pro._id.slice(0, 5)}</span>... {t("hasBeenAddBy")} <span className='text-purple-500'>{admin.name}</span></p>,
             time: new Date().toLocaleTimeString(),
             avatar: pro.image,
             read: false,
@@ -84,8 +86,8 @@ const NotificationPanel = () => {
       case "new_order":
         newNotif = {
           id: crypto.randomUUID(),
-          title: data.title || 'New Order',
-          message: <p className="text-gray-600 dark:text-gray-300 text-sm">Order <span className='text-pink-500'>#{data.orderId.slice(0, 5)}</span>... has been bought by <span className='text-purple-500'>{data.customerName}</span></p>,
+          title: data.title || t("newOrder"),
+          message: <p className="text-gray-600 dark:text-gray-300 text-sm">{t("order")} <span className='text-pink-500'>#{data.orderId.slice(0, 5)}</span>... {t("hasBeenBoughtBy")} <span className='text-purple-500'>{data.customerName}</span></p>,
           time: new Date().toLocaleTimeString(),
           avatar: admin.avatar,
           read: false,
@@ -94,8 +96,8 @@ const NotificationPanel = () => {
       case "delete_order":
         newNotif = {
           id: crypto.randomUUID(),
-          title: data.title || 'Order deleted',
-          message: <p className="text-gray-600 dark:text-gray-300 text-sm">Order <span className='text-pink-500'>#{data.orderId.slice(0, 5)}</span>... has been deleted by <span className='text-purple-500'>{admin.name}</span></p>,
+          title: data.title || t("deleteOrder"),
+          message: <p className="text-gray-600 dark:text-gray-300 text-sm">{t("order")} <span className='text-pink-500'>#{data.orderId.slice(0, 5)}</span>... {t("hasBeenDeleteBy")} <span className='text-purple-500'>{admin.name}</span></p>,
           time: new Date().toLocaleTimeString(),
           avatar: admin.avatar,
           read: false,
@@ -104,8 +106,8 @@ const NotificationPanel = () => {
       case "delete_product":
         newNotif = {
           id: crypto.randomUUID(),
-          title: data.title || 'Product deleted',
-          message: <p className="text-gray-600 dark:text-gray-300 text-sm">Product <span className='text-pink-500'>#{data.productId.slice(0, 5)}</span>... has been deleted by <span className='text-purple-500'>{admin.name}</span></p>,
+          title: data.title || t("deleteProduct"),
+          message: <p className="text-gray-600 dark:text-gray-300 text-sm">{t("product")} <span className='text-pink-500'>#{data.productId.slice(0, 5)}</span>... {t("hasBeenDeleteBy")} <span className='text-purple-500'>{admin.name}</span></p>,
           time: new Date().toLocaleTimeString(),
           avatar: admin.avatar,
           read: false,
@@ -114,8 +116,8 @@ const NotificationPanel = () => {
       case "delete_user":
         newNotif = {
           id: crypto.randomUUID(),
-          title: data.title || 'User deleted',
-          message: <p className="text-gray-600 dark:text-gray-300 text-sm">User <span className='text-pink-500'>#{data.userId.slice(0, 5)}</span>... has been deleted by <span className='text-purple-500'>{admin.name}</span></p>,
+          title: data.title || t("deleteUser"),
+          message: <p className="text-gray-600 dark:text-gray-300 text-sm">{t("user")} <span className='text-pink-500'>#{data.userId.slice(0, 5)}</span>... {t("hasBeenDeleteBy")} <span className='text-purple-500'>{admin.name}</span></p>,
           time: new Date().toLocaleTimeString(),
           avatar: admin.avatar,
           read: false,
@@ -170,16 +172,16 @@ const NotificationPanel = () => {
       >
         <PopoverPanel className="absolute right-0 mt-2 w-96 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl z-10">
           <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Notifications</h3>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">{t("notification")}</h3>
             <span className="bg-purple-500 text-white text-xs font-semibold px-2 py-1 rounded-md">
-              {unreadCount} Unread
+              {unreadCount} {t("unRead")}
             </span>
           </div>
 
           <ul className="max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800 scroll-smooth">
             {notifications.length === 0 && (
               <li className="text-center text-sm text-gray-500 py-4 dark:text-gray-400">
-                No notifications yet.
+                {t("noNotification")}
               </li>
             )}
             {notifications.map((notif) => (
@@ -221,7 +223,7 @@ const NotificationPanel = () => {
               }}
               className="w-full bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md text-sm"
             >
-              Clear All
+              {t("clearAll")}
             </button>
           </div>
         </PopoverPanel>

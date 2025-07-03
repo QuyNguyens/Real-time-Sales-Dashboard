@@ -1,17 +1,24 @@
-// components/EditOrderDialog.tsx
-import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
-import { Fragment, useEffect, useState } from 'react';
-import type { Order } from '../types/order';
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+  TransitionChild,
+} from "@headlessui/react";
+import { Fragment, useEffect, useState } from "react";
+import type { Order } from "../types/order";
+import { useTranslation } from "react-i18next";
 
 interface EditOrderDialogProps {
   open: boolean;
   onClose: () => void;
   order: Order | null;
-  onSave: (id: string, status: Order['status']) => void;
+  onSave: (id: string, status: Order["status"]) => void;
 }
 
 const EditOrderDialog = ({ open, onClose, order, onSave }: EditOrderDialogProps) => {
-  const [status, setStatus] = useState<Order['status']>(order?.status ?? 'processing'   );
+  const { t } = useTranslation();
+  const [status, setStatus] = useState<Order["status"]>(order?.status ?? "processing");
 
   useEffect(() => {
     if (order) setStatus(order.status);
@@ -39,17 +46,19 @@ const EditOrderDialog = ({ open, onClose, order, onSave }: EditOrderDialogProps)
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
-            <DialogPanel className="w-full max-w-md bg-white rounded-lg p-6 space-y-4">
-              <DialogTitle className="text-lg font-medium text-gray-800">
-                Edit Order Status
+            <DialogPanel className="w-full max-w-md bg-white dark:bg-gray-900 rounded-lg p-6 space-y-4">
+              <DialogTitle className="text-lg font-medium text-gray-800 dark:text-white">
+                {t("editOrder.title")}
               </DialogTitle>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Status</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("editOrder.statusLabel")}
+                </label>
                 <select
-                  className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm text-sm p-2"
+                  className="mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm p-2 text-gray-900 dark:text-white"
                   value={status}
-                  onChange={(e) => setStatus(e.target.value as Order['status'])}
+                  onChange={(e) => setStatus(e.target.value as Order["status"])}
                 >
                   <option value="new">New</option>
                   <option value="processing">Processing</option>
@@ -62,15 +71,15 @@ const EditOrderDialog = ({ open, onClose, order, onSave }: EditOrderDialogProps)
               <div className="flex justify-end gap-2">
                 <button
                   onClick={onClose}
-                  className="px-4 py-2 text-sm text-gray-600 hover:underline"
+                  className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:underline"
                 >
-                  Cancel
+                  {t("editOrder.cancel")}
                 </button>
                 <button
                   onClick={handleSave}
                   className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
                 >
-                  Save
+                  {t("editOrder.save")}
                 </button>
               </div>
             </DialogPanel>

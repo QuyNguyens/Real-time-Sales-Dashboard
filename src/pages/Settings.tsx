@@ -2,7 +2,9 @@ import MockSettings from "../components/MockSettings"
 
   const Settings = () => {
     return (
-      <MockSettings/>
+      <div className="w-full h-full flex items-center justify-center">
+        <MockSettings/>
+      </div>
     )
   }
 

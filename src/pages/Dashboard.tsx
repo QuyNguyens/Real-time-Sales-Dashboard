@@ -18,6 +18,7 @@ import { decrementTotal as decrementProductTotal, deleteItemFromPage as deletePr
 import { decrementTotal as decrementOrderTotal, deleteItemFromPage as deleteOrderFromPage, incrementOneTotal } from "../features/orders/ordersSlice";
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
 import { setProductTypeStats } from "../features/products/productStatusSlice";
+import { useTranslation } from "react-i18next";
 
 const Dashboard = () => {
     const [salesOverview, setSalesOverview] = useState<SaleOverView[]>([]);
@@ -28,6 +29,8 @@ const Dashboard = () => {
     const productsCounts = useSelector((state: RootState) => state.products.total);
     const ordersCounts = useSelector((state: RootState) => state.orders.total);
     const usersCounts = useSelector((state: RootState) => state.users.total);
+
+    const {t} = useTranslation();
 
     const fetchSalesOverview = async () => {
       const cached = sessionStorage.getItem("salesOverview");
@@ -143,13 +146,13 @@ const Dashboard = () => {
     
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-semibold">Sales Dashboard</h1>
+      <h1 className="text-xl font-semibold">{t("dashboard.sales")}</h1>
       <div className="flex flex-col xl:flex-row gap-5">
         <div className="flex-1 flex flex-col gap-5">
           <div className="flex gap-5 flex-wrap">
-            <TotalItem title="Total Products" amount={productsCounts} bgColor="bg-blue-500" icon={ShoppingCartIcon} />
-            <TotalItem title="Total Users" amount={usersCounts} bgColor="bg-purple-500" icon={UserCircleIcon} />
-            <TotalItem title="Total Orders" amount={ordersCounts} bgColor="bg-orange-500" icon={ChartBarIcon} />
+            <TotalItem title={t("dashboard.totalProduct")} amount={productsCounts} bgColor="bg-blue-500" icon={ShoppingCartIcon} />
+            <TotalItem title={t("dashboard.TotalUser")} amount={usersCounts} bgColor="bg-purple-500" icon={UserCircleIcon} />
+            <TotalItem title={t("dashboard.totalOrder")} amount={ordersCounts} bgColor="bg-orange-500" icon={ChartBarIcon} />
           </div>
           <div className="flex gap-5 flex-col lg:flex-row">
             <div className="flex-1">

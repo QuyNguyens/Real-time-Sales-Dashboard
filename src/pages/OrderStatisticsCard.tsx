@@ -11,6 +11,7 @@ import OrderDaySelector from "../components/OrderDaySelector";
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import type { OrderStatus } from "../types/order";
 import orderApi from "../api/orders";
+import { useTranslation } from "react-i18next";
 
 type StatusData = {
   name: string;
@@ -34,6 +35,8 @@ const statusOrder: (keyof OrderStatus)[] = [
 const options = ["Today", "Last day", "This week", "Last week", "This month", "Last month", "All"];
 
 export default function OrderStatisticsCard({orderStatus, setOrderStatus}: OrderStatisticsCardProps) {
+
+  const {t} = useTranslation();
 
   const data: StatusData[] = useMemo(() => {
     return statusOrder.map((key) => ({
@@ -106,7 +109,7 @@ export default function OrderStatisticsCard({orderStatus, setOrderStatus}: Order
     <div className="relative w-full bg-white dark:bg-black-primary p-4 rounded-xl shadow-md">
   <div className="flex items-center justify-between">
     <h2 className="text-base font-medium mb-2 text-gray-800 dark:text-white">
-      Order Statistics
+      {t("orderChart.statistic")}
     </h2>
     <OrderDaySelector options={options} iconOnly={true} onSelect={handleFilterChange} />
   </div>
@@ -116,7 +119,7 @@ export default function OrderStatisticsCard({orderStatus, setOrderStatus}: Order
   </div>
 
   <div className="my-4 flex flex-col">
-    <span className="text-xs font-medium text-gray-600 dark:text-gray-300">TOTAL ORDERS</span>
+    <span className="text-xs font-medium text-gray-600 dark:text-gray-300">{t("dashboard.totalOrder")}</span>
     <span className="text-xl font-semibold text-gray-900 dark:text-white">
       {total.toLocaleString()}
     </span>
@@ -157,7 +160,7 @@ export default function OrderStatisticsCard({orderStatus, setOrderStatus}: Order
     </ResponsiveContainer>
 
     <div className="absolute top-16 left-1/2 -translate-x-1/2 text-center pointer-events-none">
-      <div className="text-base font-bold text-gray-900 dark:text-white">Total</div>
+      <div className="text-base font-bold text-gray-900 dark:text-white">{t("total")}</div>
       <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">{total}</div>
     </div>
 

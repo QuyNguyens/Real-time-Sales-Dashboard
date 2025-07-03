@@ -1,0 +1,102 @@
+{
+  "orderUpdate": "Cập nhập đơn hàng",
+  "order": "Đơn hàng",
+  "hasBeen": "đã",
+  "createdUser": "Tạo User",
+  "hasBeenCreated": "Đã tạo",
+  "product": "Sản phẩm",
+  "createdProduct": "Đã tạo sản phẩm",
+  "hasBeenAddBy": "đã được thêm bởi",
+  "basBeenBoughtBy": "đã được đặt bởi",
+  "newOrder": "đơn hàng mới",
+  "deleteOrder": "Dã xóa đơn hàng",
+  "deleteProduct": "Đã xóa sản phẩm",
+  "deleteUser": "Đã xóa người dùng",
+  "user": "Người dùng",
+  "hasBeenDeleteBy": "đã xóa bởi",
+  "notification": "Thông báo",
+  "unRead": "Chưa đọc",
+  "noNotification": "Chưa có thông báo",
+  "clearAll": "Xóa hết",
+  "total": "Tổng",
+  "recentOrder": "Đơn hàng gần đây",
+  "recentProduct": "Sản phẩm gần đây",
+  "recentUser": "Người dùng gần đây",
+  "item": "mục",
+  "mockSettings": {
+    "title": "Cài đặt dữ liệu giả",
+    "description": "Tuỳ chỉnh số lượng dữ liệu được tạo cho từng loại. Các cài đặt này sẽ được sử dụng khi nhấn nút \"Tạo\" trên bảng điều khiển.",
+    "orders": "Đơn hàng",
+    "users": "Người dùng",
+    "products": "Sản phẩm",
+    "save": "Lưu cài đặt",
+    "saved": "Đã lưu cài đặt"
+  },
+    "avatar": {
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất"
+  },
+  "sidebar": {
+    "dashboard": "Bảng điều khiển",
+    "orders": "Đơn hàng",
+    "products": "Sản phẩm",
+    "users": "Người dùng",
+    "fetchData": "Lấy dữ liệu",
+    "settings": "Cài đặt"
+  },
+    "dashboard": {
+    "sales": "Bảng điều khiển bán hàng",
+    "totalProduct": "Tổng sản phẩm",
+    "totalOrder": "Tổng đơn hàng",
+    "TotalUser": "Tổng người dùng"
+  },
+  "orderChart": {
+    "title": "Tổng quan doanh số",
+    "monthLabel": "Tháng: {{month}}",
+    "sales": "Doanh thu",
+    "profit": "Lợi nhuận",
+    "unit": "{{value}} triệu ₫",
+    "statistic": "Thống kê đơn hàng",
+    "topSales": "Danh mục bán chạy nhất",
+    "sortBy": "Sắp xếp bởi",
+    "overallSale": "Tổng doanh số"
+  },
+  "fetchData": {
+    "title": "Tạo dữ liệu giả",
+    "description": "Nhấn các nút bên dưới để nhanh chóng tạo đơn hàng, người dùng hoặc sản phẩm giả. Bạn có thể tùy chỉnh số lượng trong trang Cài đặt.",
+    "generateOrder": "Tạo đơn hàng",
+    "generateUser": "Tạo người dùng",
+    "generateProduct": "Tạo sản phẩm",
+    "orderSuccess": "Đã tạo {{count}} đơn hàng mới!",
+    "userSuccess": "Đã tạo {{count}} người dùng mới!",
+    "productSuccess": "Đã tạo {{count}} sản phẩm mới!",
+    "orderError": "Tạo đơn hàng thất bại.",
+    "userError": "Tạo người dùng thất bại.",
+    "productError": "Tạo sản phẩm thất bại."
+  },
+  "confirmDialog": {
+    "title": "Xác nhận",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "deleteMessage": "Bạn có chắc chắn muốn xóa dòng này không?"
+  },
+  "editOrder": {
+    "title": "Chỉnh sửa trạng thái đơn hàng",
+    "statusLabel": "Trạng thái",
+    "cancel": "Hủy",
+    "save": "Lưu"
+  },
+  "stackedChart": {
+    "title": "Thống kê doanh thu",
+    "totalThisWeek": "Tổng tuần này",
+    "totalThisMonth": "Tổng tháng này",
+    "totalThisYear": "Tổng năm nay",
+    "tooltip": {
+      "thisWeek": "Tuần này",
+      "thisMonth": "Tháng này",
+      "thisYear": "Năm nay"
+    },
+    "currency": "VND {{value}} Tr"
+  }
+}

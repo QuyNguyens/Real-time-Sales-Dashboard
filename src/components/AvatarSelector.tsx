@@ -5,8 +5,13 @@ import {
   Cog6ToothIcon,
   LockClosedIcon
 } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const AvatarSelector = () => {
+  const {t} = useTranslation();
+  const navigate = useNavigate();
+
   const user = {
     name: 'Mr.Henry',
     role: 'UI/UX Designer',
@@ -45,24 +50,25 @@ const AvatarSelector = () => {
                     active ? 'bg-gray-100 dark:bg-gray-800' : ''
                   } flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:text-purple-700 dark:text-white gap-2`}
                 >
-                    <div className='w-6 h-6 flex justify-center items-center rounded-full bg-purple-200'>
+                    <div className='w-6 h-6 mr-1 flex justify-center items-center rounded-full bg-purple-200'>
                         <UserIcon className="w-4 h-4 text-purple-700" />
                     </div>
-                  Profile
+                  {t("avatar.profile")}
                 </button>
               )}
             </MenuItem>
             <MenuItem>
               {({ active }) => (
                 <button
+                  onClick={() => navigate('/settings')}
                   className={`${
                     active ? 'bg-gray-100 dark:bg-gray-800' : ''
                   } flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:text-purple-700 dark:text-white gap-2`}
                 >
-                     <div className='w-6 h-6 flex justify-center items-center rounded-full bg-purple-200'>
+                     <div className='w-6 h-6 mr-1 flex justify-center items-center rounded-full bg-purple-200'>
                         <Cog6ToothIcon className="w-4 h-4 text-purple-700" />
                     </div>
-                  Settings
+                    {t("avatar.settings")}
                 </button>
               )}
             </MenuItem>
@@ -73,10 +79,10 @@ const AvatarSelector = () => {
                     active ? 'bg-gray-100 dark:bg-gray-800' : ''
                   } flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:text-purple-700 dark:text-white gap-2`}
                 >
-                     <div className='w-6 h-6 flex justify-center items-center rounded-full bg-purple-200'>
+                     <div className='w-6 h-6 mr-1 flex justify-center items-center rounded-full bg-purple-200'>
                         <LockClosedIcon className="w-4 h-4 text-purple-700" />
                     </div>
-                  Logout
+                    {t("avatar.logout")}
                 </button>
               )}
             </MenuItem>

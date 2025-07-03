@@ -72,9 +72,9 @@ const UserTable: React.FC<Props> = ({ data }) => {
                   {format(new Date(user.createdAt), "dd,MMM yyyy")}
                 </td>
                 <td className="px-4 py-3 flex items-center justify-center gap-2">
-                  <button className="p-2 rounded bg-green-100 hover:bg-green-200 dark:bg-green-700 dark:hover:bg-green-600">
+                  {/* <button className="p-2 rounded bg-green-100 hover:bg-green-200 dark:bg-green-700 dark:hover:bg-green-600">
                     <PencilIcon className="w-4 h-4 text-green-700 dark:text-white" />
-                  </button>
+                  </button> */}
                   <button
                     onClick={() => handleDeleteClick(user._id)}
                     className="p-2 rounded bg-red-100 hover:bg-red-200 dark:bg-red-700 dark:hover:bg-red-600"

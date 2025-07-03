@@ -12,6 +12,7 @@ import type { OrderWeekBreakdownResponse, Weekday } from "../types/order";
 import orderApi from "../api/orders";
 import { useSelector } from "react-redux";
 import type { RootState } from "../app/store";
+import { useTranslation } from "react-i18next";
 
 // === Chart component ===
 
@@ -36,6 +37,7 @@ const StackedOrderChart = () => {
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const [orderStats, setOrderStats] = useState<OrderWeekBreakdownResponse>();
   const orderTotal = useSelector((state: RootState) => state.orders.total);
+  const { t } = useTranslation();
 
   useEffect(() => {
     async function fetchData() {
@@ -66,33 +68,33 @@ const StackedOrderChart = () => {
   return (
     <div className="p-4 bg-white dark:bg-black-primary rounded-xl shadow w-full max-w-4xl mx-auto">
       <h2 className="text-lg text-gray-600 dark:text-gray-200 font-semibold mb-4">
-        Sales statistics
+        {t("stackedChart.title")}
       </h2>
 
       <div className="flex flex-wrap justify-center gap-2 mb-5">
         <div className="flex flex-col p-4 bg-gray-100 dark:bg-gray-800 rounded-sm w-fit">
-          <span className="text-sm text-gray-600 dark:text-gray-300">Total this week</span>
+          <span className="text-sm text-gray-600 dark:text-gray-300">{t("stackedChart.totalThisWeek")}</span>
           {orderStats?.thisWeek.weekTotal && (
             <span className="font-medium text-sm text-gray-700 dark:text-gray-100">
-              VND {(orderStats?.thisWeek.weekTotal / 1_000_000).toFixed(1)} Tr
+              {t("stackedChart.currency", { value: (orderStats?.thisWeek.weekTotal / 1_000_000).toFixed(1) })}
             </span>
           )}
         </div>
 
         <div className="flex flex-col p-4 bg-gray-100 dark:bg-gray-800 rounded-sm w-fit">
-          <span className="text-sm text-gray-600 dark:text-gray-300">Total this month</span>
+          <span className="text-sm text-gray-600 dark:text-gray-300">{t("stackedChart.totalThisMonth")}</span>
           {orderStats?.sameWeekLastMonth.weekTotal && (
             <span className="font-medium text-sm text-green-500">
-              VND {(orderStats?.sameWeekLastMonth.weekTotal / 1_000_000).toFixed(1)} Tr
+              {t("stackedChart.currency", { value: (orderStats?.thisWeek.weekTotal / 1_000_000).toFixed(1) })}
             </span>
           )}
         </div>
 
         <div className="flex flex-col p-4 bg-gray-100 dark:bg-gray-800 rounded-sm w-fit">
-          <span className="text-sm text-gray-600 dark:text-gray-300">Total this year</span>
+          <span className="text-sm text-gray-600 dark:text-gray-300">{t("stackedChart.totalThisYear")}</span>
           {orderStats?.sameWeekLastYear.weekTotal && (
             <span className="font-medium text-sm text-red-500">
-              VND {(orderStats?.sameWeekLastYear.weekTotal / 1_000_000).toFixed(1)} Tr
+              {t("stackedChart.currency", { value: (orderStats?.thisWeek.weekTotal / 1_000_000).toFixed(1) })}
             </span>
           )}
         </div>
@@ -113,9 +115,9 @@ const StackedOrderChart = () => {
               itemStyle={{ color: "#f9fafb" }}
             />
             <Legend wrapperStyle={{ fontSize: 12, color: "#f9fafb" }} />
-            <Bar dataKey="thisWeek" stackId="orders" fill="#3b82f6" name="This Week" radius={[4, 4, 4, 4]} />
-            <Bar dataKey="thisMonth" stackId="orders" fill="#a855f7" name="This Month" radius={[4, 4, 4, 4]} />
-            <Bar dataKey="thisYear" stackId="orders" fill="#f97316" name="This Year" radius={[4, 4, 4, 4]} />
+            <Bar dataKey="thisWeek" stackId="orders" fill="#3b82f6" name={t("stackedChart.tooltip.thisWeek")} radius={[4, 4, 4, 4]} />
+            <Bar dataKey="thisMonth" stackId="orders" fill="#a855f7" name={t("stackedChart.tooltip.thisMonth")} radius={[4, 4, 4, 4]} />
+            <Bar dataKey="thisYear" stackId="orders" fill="#f97316" name={t("stackedChart.tooltip.thisYear")} radius={[4, 4, 4, 4]} />
           </BarChart>
         </ResponsiveContainer>
       </div>

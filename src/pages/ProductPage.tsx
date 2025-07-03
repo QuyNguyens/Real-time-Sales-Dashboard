@@ -11,6 +11,7 @@ import { selectCurrentProducts } from "../features/products/productsSlice";
 import ProductTable from "../components/ProductTable";
 import TopSellingCategories from "./TopSellingCategories";
 import Banner from '../assets/banner.png';
+import { useTranslation } from "react-i18next";
 
 const ProductPage = () => {
   const currentPage = useSelector((state: RootState) => state.products.currentPage);
@@ -19,6 +20,7 @@ const ProductPage = () => {
   const pages = useSelector((state: RootState) => state.products.pages);
   const products = useSelector(selectCurrentProducts);
   const dispatch = useDispatch<AppDispatch>();
+  const {t} = useTranslation();
 
   const productStatus = useSelector((state: RootState) => state.productStatus.data);
 
@@ -50,7 +52,7 @@ const ProductPage = () => {
     <div className="flex flex-col xl:flex-row gap-5 h-full items-start xl:items-center">
       <div className="w-full flex flex-col h-full justify-between bg-white dark:bg-black-primary">
         <div>
-          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">Recent Products</h2>
+          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">{t("recentProduct")}</h2>
           <ProductTable data={products} />
         </div>
         <div className="flex justify-between p-4">

@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import type { SaleOverView } from "../types/order";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface SalesOverviewChartProps {
   salesData: SaleOverView[];
@@ -18,6 +19,7 @@ interface SalesOverviewChartProps {
 
 function SalesOverviewChart({ salesData }: SalesOverviewChartProps) {
   const isDarkMode = document.documentElement.classList.contains("dark");
+  const { t } = useTranslation();
 
   const data = salesData.map((item) => ({
     ...item,
@@ -32,7 +34,9 @@ function SalesOverviewChart({ salesData }: SalesOverviewChartProps) {
 
   return (
     <div className="bg-white dark:bg-black-primary w-full p-4 rounded-xl shadow-md">
-      <h2 className="text-lg font-semibold mb-5 text-gray-800 dark:text-white">Sales Overview</h2>
+      <h2 className="text-lg font-semibold mb-5 text-gray-800 dark:text-white">
+        {t("orderChart.title")}
+      </h2>
       <ResponsiveContainer width="100%" height={300}>
         <ComposedChart data={data}>
           <CartesianGrid stroke={isDarkMode ? "#444" : "#eee"} strokeDasharray="5 5" />
@@ -45,19 +49,33 @@ function SalesOverviewChart({ salesData }: SalesOverviewChartProps) {
           <Tooltip
             contentStyle={{
               backgroundColor: isDarkMode ? "#19191c" : "#fff",
-              borderColor: isDarkMode ? "#4b5563" : "#e5e7eb",  
-              color: isDarkMode ? "#f3f4f6" : "#111827",     
+              borderColor: isDarkMode ? "#4b5563" : "#e5e7eb",
+              color: isDarkMode ? "#f3f4f6" : "#111827",
             }}
-            formatter={(value: number, name: string) => [`${value} triệu ₫`, name]}
-            labelFormatter={(label) => `Tháng: ${label}`}
+            formatter={(value: number, name: string) => [
+              t("orderChart.unit", { value }),
+              t(`${name}`)
+            ]}
+            labelFormatter={(label) => t("orderChart.monthLabel", { month: label })}
           />
           <Legend
             wrapperStyle={{
-              color: isDarkMode ? "#f3f4f6" : "#111827", // text color
+              color: isDarkMode ? "#f3f4f6" : "#111827",
             }}
           />
-          <Bar dataKey="profit" barSize={10} fill="#6366F1" name="Profit" />
-          <Line type="monotone" dataKey="sales" stroke="#EC4899" strokeWidth={3} name="Sales" />
+          <Bar
+            dataKey="profit"
+            barSize={10}
+            fill="#6366F1"
+            name={t("orderChart.profit")}
+          />
+          <Line
+            type="monotone"
+            dataKey="sales"
+            stroke="#EC4899"
+            strokeWidth={3}
+            name={t("orderChart.sales")}
+          />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

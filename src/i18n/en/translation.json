@@ -1,0 +1,102 @@
+{
+  "orderUpdate": "Order Updates",
+  "order": "Order",
+  "hasBeen": "has been",
+  "createdUser": "Created User",
+  "hasBeenCreated": "has been created",
+  "product": "Product",
+  "createdProduct": "Created Product",
+  "hasBeenAddBy": "has been add by",
+  "basBeenBoughtBy": "has been bought by",
+  "newOrder": "newOrder",
+  "deleteOrder": "Order Deleted",
+  "deleteProduct": "Product Deleted",
+  "deleteUser": "User Deleted",
+  "user": "User",
+  "hasBeenDeleteBy": "has been delete by",
+  "notification": "Notifications",
+  "unRead": "Unread",
+  "noNotification": "No notifications yet.",
+  "clearAll": "Clear All",
+  "total": "Total",
+  "recentOrder": "Recent Orders",
+  "recentProduct": "Recent Products",
+  "recentUser": "Recent Users",
+  "item": "items",
+  "mockSettings": {
+    "title": "Fake Data Settings",
+    "description": "Customize the number of items generated for each fake data type. These settings will be used when clicking the \"Generate\" buttons on the dashboard.",
+    "orders": "Orders",
+    "users": "Users",
+    "products": "Products",
+    "save": "Save Settings",
+    "saved": "Settings saved"
+  },
+  "avatar": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "orders": "Orders",
+    "products": "Products",
+    "users": "Users",
+    "fetchData": "Fetch Data",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "sales": "Sales Dashboard",
+    "totalProduct": "Total Products",
+    "totalOrder": "Total Orders",
+    "TotalUser": "Total Users"
+  },
+  "orderChart": {
+    "title": "Sales Overview",
+    "monthLabel": "Month: {{month}}",
+    "sales": "Sales",
+    "profit": "Profit",
+    "unit": "{{value}} million ₫",
+    "statistic": "Order Statistics",
+    "topSales": "Top Selling Categories",
+    "sortBy": "Sort By",
+    "overallSale": "Overall Sales"
+  },
+  "fetchData": {
+    "title": "Fake Data Generator",
+    "description": "Click the buttons below to quickly generate mock orders, users, or products. You can customize the number of items in the Settings page.",
+    "generateOrder": "Generate Order",
+    "generateUser": "Generate User",
+    "generateProduct": "Generate Product",
+    "orderSuccess": "{{count}} new order(s) created!",
+    "userSuccess": "{{count}} new user(s) created!",
+    "productSuccess": "{{count}} new product(s) created!",
+    "orderError": "Failed to create order.",
+    "userError": "Failed to create user.",
+    "productError": "Failed to create product."
+  },
+  "confirmDialog": {
+    "title": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteMessage": "Are you sure you want to delete this row?"
+  },
+  "editOrder": {
+    "title": "Edit Order Status",
+    "statusLabel": "Status",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+   "stackedChart": {
+    "title": "Sales statistics",
+    "totalThisWeek": "Total this week",
+    "totalThisMonth": "Total this month",
+    "totalThisYear": "Total this year",
+    "tooltip": {
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "thisYear": "This Year"
+    },
+    "currency": "VND {{value}} M"
+  }
+}

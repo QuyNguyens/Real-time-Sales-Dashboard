@@ -1,5 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 
 interface OrderDaySelectorProps {
   iconOnly?: boolean;
@@ -8,6 +9,8 @@ interface OrderDaySelectorProps {
 }
 
 const OrderDaySelector = ({ iconOnly, options, onSelect }: OrderDaySelectorProps) => {
+  const {t} = useTranslation();
+
   return (
     <div className="relative inline-block text-left">
       <Menu>
@@ -18,7 +21,7 @@ const OrderDaySelector = ({ iconOnly, options, onSelect }: OrderDaySelectorProps
             <EllipsisVerticalIcon className="h-4 w-4 text-gray-700 dark:text-white" />
           ) : (
             <div className="flex gap-1 items-center">
-              <span className="text-sm text-gray-400 dark:text-gray-300 font-medium">Sort By</span>
+              <span className="text-sm text-gray-400 dark:text-gray-300 font-medium">{t("orderChart.sortBy")}</span>
               <ChevronDownIcon className="w-4 h-4 text-gray-600 dark:text-white" />
             </div>
           )}

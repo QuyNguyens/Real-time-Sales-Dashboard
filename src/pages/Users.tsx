@@ -13,6 +13,7 @@ import type { TopUser as TopUserType } from "../types/user";
 import userApi from "../api/users";
 import TopUsersTable from "../components/TopUsersTable";
 import OrderDaySelector from "../components/OrderDaySelector";
+import { useTranslation } from "react-i18next";
 
 const options = ["Day", "Week", "Month", "Year"];
 
@@ -23,7 +24,7 @@ const Users = () => {
   const total = useSelector((state: RootState) => state.users.total);
   const pages = useSelector((state: RootState) => state.users.pages);
   const users = useSelector(selectCurrentUsers);
-
+  const {t} = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const Users = () => {
     <div className="flex flex-col xl:flex-row h-full gap-5">
       <div className="flex-1 h-full flex flex-col justify-between bg-white dark:bg-black-primary">
         <div>
-          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">Recent users</h2>
+          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">{t("recentUser")}</h2>
           <UserTable data={users} />
         </div>
         <div className="flex justify-between p-4">

@@ -1,46 +1,56 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 const LOCAL_STORAGE_KEY = "fakeDataSettings";
 
-const MockSettings = () => {
-  const [orderCount, setOrderCount] = useState(1);
-  const [userCount, setUserCount] = useState(1);
-  const [productCount, setProductCount] = useState(3);
+const getInitialSettings = () => {
+  const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    return {
+      orderCount: parsed.orderCount ?? 1,
+      userCount: parsed.userCount ?? 1,
+      productCount: parsed.productCount ?? 3,
+    };
+  }
+  return {
+    orderCount: 1,
+    userCount: 1,
+    productCount: 3,
+  };
+};
 
-  useEffect(() => {
-    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (saved) {
-      const settings = JSON.parse(saved);
-      setOrderCount(settings.orderCount ?? 1);
-      setUserCount(settings.userCount ?? 1);
-      setProductCount(settings.productCount ?? 3);
-    }
-  }, []);
+const MockSettings = () => {
+  const { t } = useTranslation();
+  const initial = getInitialSettings();
+
+  const [orderCount, setOrderCount] = useState(initial.orderCount);
+  const [userCount, setUserCount] = useState(initial.userCount);
+  const [productCount, setProductCount] = useState(initial.productCount);
 
   const handleSave = () => {
     localStorage.setItem(
       LOCAL_STORAGE_KEY,
       JSON.stringify({ orderCount, userCount, productCount })
     );
-    toast.success('Settings saved');
+    toast.success(t("mockSettings.saved"));
   };
 
   return (
     <div className="bg-white dark:bg-gray-950 p-6 rounded-lg shadow-md max-w-md mx-auto">
       <h1 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-        Fake Data Settings
-        
+        {t("mockSettings.title")}
       </h1>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-5">
-        Customize the number of items generated for each fake data type. These settings
-        will be used when clicking the "Generate" buttons on the dashboard.
+        {t("mockSettings.description")}
       </p>
 
       <div className="space-y-4">
-        
         <div className="flex justify-between items-center">
-          <label className="text-gray-700 dark:text-gray-300 font-medium">Orders</label>
+          <label className="text-gray-700 dark:text-gray-300 font-medium">
+            {t("mockSettings.orders")}
+          </label>
           <input
             type="number"
             min={1}
@@ -51,7 +61,9 @@ const MockSettings = () => {
         </div>
 
         <div className="flex justify-between items-center">
-          <label className="text-gray-700 dark:text-gray-300 font-medium">Users</label>
+          <label className="text-gray-700 dark:text-gray-300 font-medium">
+            {t("mockSettings.users")}
+          </label>
           <input
             type="number"
             min={1}
@@ -62,7 +74,9 @@ const MockSettings = () => {
         </div>
 
         <div className="flex justify-between items-center">
-          <label className="text-gray-700 dark:text-gray-300 font-medium">Products</label>
+          <label className="text-gray-700 dark:text-gray-300 font-medium">
+            {t("mockSettings.products")}
+          </label>
           <input
             type="number"
             min={1}
@@ -77,7 +91,7 @@ const MockSettings = () => {
         onClick={handleSave}
         className="mt-6 w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
       >
-        Save Settings
+        {t("mockSettings.save")}
       </button>
     </div>
   );

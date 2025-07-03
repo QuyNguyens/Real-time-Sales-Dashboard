@@ -9,6 +9,7 @@ import ConfirmDialog from "./ConfirmDialog";
 import EditOrderDialog from "./EditOrderDialog";
 import orderApi from "../api/orders";
 import { updateItemStatus } from "../features/orders/ordersSlice";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   data: Order[];
@@ -25,7 +26,8 @@ const statusStyles: Record<Order["status"], string> = {
 const OrdersTable: React.FC<Props> = ({ data }) => {
 
     const dispatch = useDispatch<AppDispatch>();
-
+    const {t} = useTranslation();
+    
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [editOpen, setEditOpen] = useState(false);
@@ -62,7 +64,7 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
 
   return (
     <div className="overflow-x-auto w-full rounded shadow">
-        <div className="max-h-[450px] w-full overflow-y-auto">
+        <div className="max-h-[450px] overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
             <table className="w-full bg-white dark:bg-black-primary text-sm text-left text-gray-800 dark:text-gray-100">
                 <thead className="bg-gray-50 dark:bg-black-primary text-gray-700 border-gray-200 border-b dark:border-gray-700 dark:text-gray-300 sticky top-0 z-1">
                     <tr>
@@ -134,9 +136,9 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
         </table>
 
         </div>
-        <ConfirmDialog
+         <ConfirmDialog
             open={confirmOpen}
-            message="Are you sure you want to delete this order?"
+            message={t("confirmDialog.deleteMessage")}
             onCancel={() => setConfirmOpen(false)}
             onConfirm={handleConfirmDelete}
         />

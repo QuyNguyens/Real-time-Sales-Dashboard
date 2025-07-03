@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 
 const perPage = [5, 7, 10, 12];
 
@@ -10,6 +11,7 @@ interface Props {
 
 const ItemsPerPage: React.FC<Props> = ({ itemsPerPage, setItemsPerPage }) => {
   const [selectedPerPage, setSelectedPerPage] = useState<number>(itemsPerPage);
+  const {t} = useTranslation();
 
   const handleSelectPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = parseInt(e.target.value);
@@ -27,7 +29,7 @@ const ItemsPerPage: React.FC<Props> = ({ itemsPerPage, setItemsPerPage }) => {
         {perPage.map((option) => (
           <option key={option} value={option}>
             {option < 10 ? "0" : ""}
-            {option} Items
+            {option} {t("item")}
           </option>
         ))}
       </select>

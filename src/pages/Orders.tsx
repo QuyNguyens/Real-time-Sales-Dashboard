@@ -9,6 +9,7 @@ import type { RootState } from "../app/store";
 import type { AppDispatch } from "../app/store"; 
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
 import StackedOrderChart from "./StackedOrderChart";
+import { useTranslation } from "react-i18next";
 
 const Orders = () => {
   const currentPage = useSelector((state: RootState) => state.orders.currentPage);
@@ -16,6 +17,7 @@ const Orders = () => {
   const total = useSelector((state: RootState) => state.orders.total);
   const pages = useSelector((state: RootState) => state.orders.pages);
   const orders = useSelector(selectCurrentOrders);
+  const {t} = useTranslation();
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -48,7 +50,7 @@ const Orders = () => {
     <div className="flex flex-col xl:flex-row h-full gap-5 items-start xl:items-center">
       <div className="w-full h-full flex flex-col justify-between bg-white dark:bg-black-primary">
         <div className="w-full">
-          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">Recent Orders</h2>
+          <h2 className="pl-4 py-6 text-xl text-gray-700 dark:text-gray-300 font-medium">{t("recentOrder")}</h2>
           <OrdersTable data={orders} />
         </div>
         <div className="flex justify-between p-4">

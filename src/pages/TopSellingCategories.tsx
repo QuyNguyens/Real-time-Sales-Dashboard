@@ -5,6 +5,7 @@ import productApi from "../api/product";
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import { setProductTypeStats } from "../features/products/productStatusSlice";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     data: ProductTypeStats;
@@ -32,6 +33,7 @@ const TopSellingCategories = ({ data }: Props) => {
     
   const entries = useMemo(() => Object.entries(data), [data]);
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const totalSales = useMemo(() => {
     return entries.reduce((sum, [, stat]) => sum + stat.amount, 0);
@@ -51,7 +53,7 @@ const TopSellingCategories = ({ data }: Props) => {
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
             <h2 className="font-semibold text-base text-gray-800 dark:text-white">
-            Top Selling Categories
+            {t("orderChart.topSales")}
             </h2>
             <OrderDaySelector options={options} iconOnly={false} onSelect={handleFilterChange} />
         </div>
@@ -70,7 +72,7 @@ const TopSellingCategories = ({ data }: Props) => {
 
         {/* Overall Total */}
         <div className="mt-2 flex justify-between items-center mb-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">Overall Sales</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{t("orderChart.overallSale")}</span>
             <span className="text-base font-semibold text-gray-900 dark:text-white">
             {totalSales.toLocaleString()}
             </span>
