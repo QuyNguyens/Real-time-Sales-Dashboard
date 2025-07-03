@@ -81,7 +81,7 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
                     <tr key={order._id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition">
                         <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                            {order.user.avatar ? (
+                            {order?.user?.avatar ? (
                             <img
                                 src={order.user.avatar}
                                 alt={order.user.name}
