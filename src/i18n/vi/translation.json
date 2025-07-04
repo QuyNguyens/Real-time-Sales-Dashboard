@@ -99,5 +99,10 @@
       "thisYear": "Năm nay"
     },
     "currency": "VND {{value}} Tr"
+  },
+  "serverWaking": {
+    "serverStarting": "Server đang khởi động...",
+    "serverDesc": "Ứng dụng đang được đánh thức từ trạng thái 'ngủ' (Render Free Plan). Vui lòng đợi khoảng 10–15 giây để khởi động.",
+    "startingUp": "Đang khởi động"
   }
 }

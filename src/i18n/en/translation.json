@@ -99,5 +99,10 @@
       "thisYear": "This Year"
     },
     "currency": "VND {{value}} M"
+  },
+  "serverWaking": {
+    "serverStarting": "Server is starting...",
+    "serverDesc": "The application is waking up from 'sleep' state (Render Free Plan). Please wait about 10–15 seconds for it to start.",
+    "startingUp": "Starting up"
   }
 }

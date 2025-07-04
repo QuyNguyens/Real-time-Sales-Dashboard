@@ -19,6 +19,7 @@ import { decrementTotal as decrementOrderTotal, deleteItemFromPage as deleteOrde
 import { useBroadcastChannel } from "../hook/useBroadcastChannel";
 import { setProductTypeStats } from "../features/products/productStatusSlice";
 import { useTranslation } from "react-i18next";
+import ServerWakingPage from "./ServerWakingPage";
 
 const Dashboard = () => {
     const [salesOverview, setSalesOverview] = useState<SaleOverView[]>([]);
@@ -145,30 +146,36 @@ const Dashboard = () => {
     },[ordersCounts])
     
   return (
-    <div className="flex flex-col gap-5">
-      <h1 className="text-xl font-semibold">{t("dashboard.sales")}</h1>
-      <div className="flex flex-col xl:flex-row gap-5">
-        <div className="flex-1 flex flex-col gap-5">
-          <div className="flex gap-5 flex-wrap">
-            <TotalItem title={t("dashboard.totalProduct")} amount={productsCounts} bgColor="bg-blue-500" icon={ShoppingCartIcon} />
-            <TotalItem title={t("dashboard.TotalUser")} amount={usersCounts} bgColor="bg-purple-500" icon={UserCircleIcon} />
-            <TotalItem title={t("dashboard.totalOrder")} amount={ordersCounts} bgColor="bg-orange-500" icon={ChartBarIcon} />
-          </div>
-          <div className="flex gap-5 flex-col lg:flex-row">
-            <div className="flex-1">
-              {salesOverview && <SalesOverviewChart salesData={salesOverview} />}
+    <>
+      {
+        salesOverview ?
+        <div className="flex flex-col gap-5">
+          <h1 className="text-xl font-semibold">{t("dashboard.sales")}</h1>
+          <div className="flex flex-col xl:flex-row gap-5">
+            <div className="flex-1 flex flex-col gap-5">
+              <div className="flex gap-5 flex-wrap">
+                <TotalItem title={t("dashboard.totalProduct")} amount={productsCounts} bgColor="bg-blue-500" icon={ShoppingCartIcon} />
+                <TotalItem title={t("dashboard.TotalUser")} amount={usersCounts} bgColor="bg-purple-500" icon={UserCircleIcon} />
+                <TotalItem title={t("dashboard.totalOrder")} amount={ordersCounts} bgColor="bg-orange-500" icon={ChartBarIcon} />
+              </div>
+              <div className="flex gap-5 flex-col lg:flex-row">
+                <div className="flex-1">
+                  {salesOverview && <SalesOverviewChart salesData={salesOverview} />}
+                </div>
+                <div className="w-[284px] ">
+                  {orderStatus && <OrderStatisticsCard orderStatus={orderStatus} setOrderStatus={setOrderStatus} />}
+                </div>
+              </div>
             </div>
-            <div className="w-[284px] ">
-              {orderStatus && <OrderStatisticsCard orderStatus={orderStatus} setOrderStatus={setOrderStatus} />}
+            <div className="flex flex-col gap-5 w-96">
+              <img src={Banner} alt="" />
+              {productStatus && <TopSellingCategories data={productStatus}/>}
             </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-5 w-96">
-          <img src={Banner} alt="" />
-          {productStatus && <TopSellingCategories data={productStatus}/>}
-        </div>
-      </div>
-    </div>
+        </div> :
+        <ServerWakingPage/>
+      }
+    </>
   );
 };
 
