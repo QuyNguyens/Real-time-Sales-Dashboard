@@ -7,7 +7,7 @@
   "product": "Product",
   "createdProduct": "Created Product",
   "hasBeenAddBy": "has been add by",
-  "basBeenBoughtBy": "has been bought by",
+  "hasBeenBoughtBy": "has been bought by",
   "newOrder": "newOrder",
   "deleteOrder": "Order Deleted",
   "deleteProduct": "Product Deleted",
@@ -23,6 +23,7 @@
   "recentProduct": "Recent Products",
   "recentUser": "Recent Users",
   "item": "items",
+  "orderDetail": "Order Details",
   "mockSettings": {
     "title": "Fake Data Settings",
     "description": "Customize the number of items generated for each fake data type. These settings will be used when clicking the \"Generate\" buttons on the dashboard.",

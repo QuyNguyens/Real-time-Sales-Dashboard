@@ -1,4 +1,4 @@
-import type { Order, OrderStatus, OrderWeekBreakdownResponse, SaleOverView } from "../types/order";
+import type { Order, OrderItem, OrderStatus, OrderWeekBreakdownResponse, SaleOverView } from "../types/order";
 import type { PaginatedResponse } from "../types/user";
 import axiosClient from "./axiosClient";
 
@@ -23,9 +23,9 @@ const orderApi = {
         return res.data;
     },
 
-    getOrderItemsByOrder: async (orderId: string, page: number = 1, limit: number = 10) :Promise<PaginatedResponse<Order>> => {
-        const res = await axiosClient.get('/api/order-items', {
-        params: { orderId, page, limit },
+    getOrderItemsByOrder: async (orderId: string) :Promise<PaginatedResponse<OrderItem>> => {
+        const res = await axiosClient.get('/api/order-items-id', {
+        params: { orderId },
     });
         return res.data;
     },

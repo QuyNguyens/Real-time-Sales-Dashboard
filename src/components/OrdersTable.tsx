@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {format} from "date-fns/format";
-import type { Order } from "../types/order";
-import { PencilIcon, TrashIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import type { Order, OrderItem } from "../types/order";
+import { DocumentMagnifyingGlassIcon, PencilIcon, TrashIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
 import { deleteOrder } from "../features/orders/ordersThunks";
 import type { AppDispatch } from "../app/store";
@@ -10,6 +10,8 @@ import EditOrderDialog from "./EditOrderDialog";
 import orderApi from "../api/orders";
 import { updateItemStatus } from "../features/orders/ordersSlice";
 import { useTranslation } from "react-i18next";
+import type { PaginatedResponse } from "../types/user";
+import OrderDetails from "./OrderDetails";
 
 interface Props {
   data: Order[];
@@ -29,8 +31,11 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
     const {t} = useTranslation();
     
     const [confirmOpen, setConfirmOpen] = useState(false);
-    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [editOpen, setEditOpen] = useState(false);
+    const [detailOpen, setDetailOpen] = useState(false);
+    const [orderItems, setOrderItems] = useState<PaginatedResponse<OrderItem>>();
+
+    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     const handleEditClick = (order: Order) => {
@@ -61,6 +66,12 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
         setConfirmOpen(false);
         setSelectedId(null);
     };
+
+    const handleDetailClick = async (id: string) =>{
+        const res = await orderApi.getOrderItemsByOrder(id);
+        setOrderItems(res);
+        setDetailOpen(true);
+    }
 
   return (
     <div className="overflow-x-auto w-full rounded shadow">
@@ -124,6 +135,12 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
                             <PencilIcon className="w-4 h-4 text-green-700 dark:text-green-400" />
                         </button>
                         <button
+                            onClick={() => handleDetailClick(order.orderId)}
+                            className="p-2 rounded bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800"
+                        >
+                            <DocumentMagnifyingGlassIcon className="w-4 h-4 text-blue-700 dark:text-blue-400" />
+                        </button>
+                        <button
                             onClick={() => handleDeleteClick(order.orderId)}
                             className="p-2 rounded bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800"
                         >
@@ -148,6 +165,14 @@ const OrdersTable: React.FC<Props> = ({ data }) => {
             order={selectedOrder}
             onSave={handleSaveEdit}
         />}
+        {detailOpen && orderItems && (
+        <OrderDetails
+            open={detailOpen}
+            onClose={() => setDetailOpen(false)}
+            items={orderItems}
+        />
+        )}
+
     </div>
   );
 };

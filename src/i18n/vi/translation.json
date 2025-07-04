@@ -7,7 +7,7 @@
   "product": "Sản phẩm",
   "createdProduct": "Đã tạo sản phẩm",
   "hasBeenAddBy": "đã được thêm bởi",
-  "basBeenBoughtBy": "đã được đặt bởi",
+  "hasBeenBoughtBy": "đã được đặt bởi",
   "newOrder": "đơn hàng mới",
   "deleteOrder": "Dã xóa đơn hàng",
   "deleteProduct": "Đã xóa sản phẩm",
@@ -23,6 +23,7 @@
   "recentProduct": "Sản phẩm gần đây",
   "recentUser": "Người dùng gần đây",
   "item": "mục",
+  "orderDetail": "Order Details",
   "mockSettings": {
     "title": "Cài đặt dữ liệu giả",
     "description": "Tuỳ chỉnh số lượng dữ liệu được tạo cho từng loại. Các cài đặt này sẽ được sử dụng khi nhấn nút \"Tạo\" trên bảng điều khiển.",
