@@ -129,7 +129,7 @@ const Dashboard = () => {
     useEffect(() => {
       const checkServer = async () => {
         try {
-          const res = await await fetch(`${import.meta.env.VITE_API_URL}ping`);
+          const res = await fetch(`${import.meta.env.VITE_API_URL}ping`);
           if (!res.ok) throw new Error("Server not ready");
         } catch(error) {
           navigate("/wake");
