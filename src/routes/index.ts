@@ -10,6 +10,7 @@ const UsersPage = lazy(() => import('../pages/Users'));
 const FetchDataPage = lazy(() => import('../pages/FetchData'));
 const SettingsPage = lazy(() => import('../pages/Settings'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const ServerWakingPage = lazy(() => import('../pages/ServerWakingPage'));
 
 const routes: RouteObject[] = [
   {
@@ -41,6 +42,10 @@ const routes: RouteObject[] = [
             element: React.createElement(SettingsPage),
         }
     ]
+  },
+  {
+    path: '/wake',
+    element: React.createElement(ServerWakingPage),
   },
   {
     path: '*',

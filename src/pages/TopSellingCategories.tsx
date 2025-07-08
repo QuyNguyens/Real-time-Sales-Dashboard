@@ -65,7 +65,7 @@ const TopSellingCategories = ({ data }: Props) => {
                 key={type}
                 className={`${GROWTH_COLORS[idx % GROWTH_COLORS.length]} h-full`}
                 style={{ width: `${value.growth}%` }}
-                title={`${type}: ${value.growth.toFixed(2)}%`}
+                title={`${type}: ${value?.growth?.toFixed(2)}%`}
             />
             ))}
         </div>
@@ -74,7 +74,7 @@ const TopSellingCategories = ({ data }: Props) => {
         <div className="mt-2 flex justify-between items-center mb-2">
             <span className="text-sm text-gray-500 dark:text-gray-400">{t("orderChart.overallSale")}</span>
             <span className="text-base font-semibold text-gray-900 dark:text-white">
-            {totalSales.toLocaleString()}
+            {totalSales?.toLocaleString()}
             </span>
         </div>
 
@@ -104,12 +104,12 @@ const TopSellingCategories = ({ data }: Props) => {
 
                 {/* Cột 2: Amount */}
                 <div className="text-sm font-semibold text-gray-600 dark:text-gray-200 text-left">
-                    {info.amount.toLocaleString()}
+                    {info?.amount?.toLocaleString()}
                 </div>
 
                 {/* Cột 3: Gross */}
                 <div className="text-xs text-gray-500 dark:text-gray-400 text-left">
-                    {info.growth.toFixed(0)}% Gross
+                    {info?.growth?.toFixed(0)}% Gross
                 </div>
 
                 {/* Cột 4: Compare */}
